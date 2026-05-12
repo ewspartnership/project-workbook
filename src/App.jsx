@@ -727,11 +727,11 @@ function Home({ projects, onOpen, onAdd, onDelete, onMethodology }) {
               <span style={{ fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#5A5249', fontWeight: 500 }}>The Project Workbook</span>
             </div>
             <h1 style={{ margin: 0, fontSize: 'clamp(42px, 6vw, 64px)', lineHeight: 1.0, maxWidth: 720 }}>
-              A small, sharp tool<br/>
-              <span style={{ fontStyle: 'italic', fontWeight: 300 }}>for purposeful projects.</span>
+              A practical workbook<br/>
+              <span style={{ fontStyle: 'italic', fontWeight: 300 }}>for running projects well.</span>
             </h1>
             <p style={{ marginTop: 18, fontSize: 17, color: '#5A5249', maxWidth: 560, lineHeight: 1.5 }}>
-              From the brief that lands in your inbox to the honest learning at the end. Project discipline shaped by <em>Root 5</em>, <em>SPICE</em>, and <em>Clarity-to-Impact®</em> — built for charity teams who run real work in the real world.
+              From first idea to final learning — helping small teams design clearly, stay on track, and learn as they go.
             </p>
           </div>
           <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
