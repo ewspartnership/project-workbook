@@ -368,8 +368,10 @@ ${mirrorPair('Whose experience', p.design?.whoMightBeMissed, p.close?.missedRefl
 </div>
 
 <div class="footer">
-  Generated on ${new Date().toLocaleDateString('en-GB')} from the Project Workbook designed and built by Stephanie Sanderson (linkedin.com/in/stephanie-sanderson-uk).<br/>
-  Shaped by Root 5 (Tearfund), SPICE, and Clarity-to-Impact® (Ann-Murray Brown).
+  Generated from the Project Workbook on ${new Date().toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric'})}.<br/>
+  A lightweight project management and learning tool designed by Stephanie Sanderson.<br/>
+  https://project-workbook.vercel.app/<br/>
+  LinkedIn: https://www.linkedin.com/in/stephanie-sanderson-uk/
 </div>
 
 </body>
