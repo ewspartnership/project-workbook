@@ -1007,7 +1007,7 @@ function CycleHub({ project, onSelectStage, currentStage }) {
                   fill: isPassed ? '#F5EFE3' : s.color,
                   fontWeight: 400,
                 }}
-              >{isPassed ? '✓' : (isInProgress ? 'â—' : '○')}</text>
+              >{isPassed ? '✓' : (isInProgress ? '◐' : '○')}</text>
 
               {/* External label */}
               <text
@@ -1052,7 +1052,7 @@ function CycleHub({ project, onSelectStage, currentStage }) {
 function CycleKey() {
   const items = [
     { mark: '○', label: 'open' },
-    { mark: 'â—', label: 'in progress' },
+    { mark: '◐', label: 'in progress' },
     { mark: '✓', label: 'gate passed' },
   ];
   return (
