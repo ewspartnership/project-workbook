@@ -2255,7 +2255,7 @@ function Methodology({ onBack }) {
 
       <div className="divider" />
 
-      <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', textAlign: 'center' }}>
+      <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic' }}>
         The system serves the team, not the other way round. Edit it if it doesn't fit.
       </p>
     </div>
