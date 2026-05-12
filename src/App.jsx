@@ -368,8 +368,7 @@ ${mirrorPair('Whose experience', p.design?.whoMightBeMissed, p.close?.missedRefl
 </div>
 
 <div class="footer">
-  Generated from the Project Workbook on ${new Date().toLocaleDateString('en-GB')}.<br/>
-  Shaped by Root 5 (Tearfund), SPICE, and Clarity-to-Impact® (Ann-Murray Brown). Methodology terms preserved as-is for funder reports.
+  Generated from the Project Workbook on ${new Date().toLocaleDateString('en-GB')}. Designed and built by Stephanie Sanderson (linkedin.com/in/stephanie-sanderson-uk). Shaped by Root 5 (Tearfund), SPICE, and Clarity-to-Impact® (Ann-Murray Brown).
 </div>
 
 </body>
