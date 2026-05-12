@@ -760,8 +760,7 @@ function Home({ projects, onOpen, onAdd, onDelete, onMethodology }) {
 
       {/* Footer note */}
       <div style={{ marginTop: 80, paddingTop: 32, borderTop: '1px solid #C9BCA5', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, fontSize: 12, color: '#8A7D6A', letterSpacing: '0.05em' }}>
-        <span>Built for thoughtful charity teams.</span>
-        <span style={{ fontStyle: 'italic', fontFamily: 'Fraunces, serif' }}>Plant. Tend. Harvest. Learn.</span>
+        <span>Developed by Stephanie Sanderson</span>
       </div>
     </div>
   );
