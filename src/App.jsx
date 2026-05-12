@@ -210,6 +210,12 @@ function buildProjectSheetHTML(p) {
   .footer { color: #8A7D6A; font-size: 9pt; margin-top: 30pt; padding-top: 10pt; border-top: 1px solid #C9BCA5; font-style: italic; }
   .partner-note { background: #FAF1DD; border: 1px solid #E8D2A6; border-left: 4px solid #A8763E; padding: 12pt 14pt; margin: 18pt 0; }
   .partner-note-label { font-weight: bold; color: #7A5A1E; font-size: 9pt; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6pt; }
+  .spice-block { margin-bottom: 20pt; padding-bottom: 16pt; border-bottom: 1px solid #C9BCA5; }
+  .spice-block:last-child { border-bottom: none; }
+  .spice-heading { font-size: 13pt; color: #3E5A3A; margin: 14pt 0 10pt; font-weight: bold; }
+  .spice-heading em { font-weight: normal; color: #8A7D6A; font-style: italic; }
+  .spice-q { font-weight: bold; color: #5A5249; font-size: 10pt; margin: 10pt 0 2pt; }
+  .spice-a { font-size: 11pt; line-height: 1.55; margin-bottom: 10pt; }
 </style>
 </head>
 <body>
@@ -238,20 +244,50 @@ function buildProjectSheetHTML(p) {
 <h2>Stage 1 — Design</h2>
 
 <h3>SPICE — describing the project</h3>
-<table>
-  <tr><th style="width:25%">Setting — why it matters</th><td>${orDash(p.spice?.s_context)}</td></tr>
-  <tr><th>Setting — where it runs</th><td>${orDash(p.spice?.s_where)}</td></tr>
-  <tr><th>Population — who it's for</th><td>${orDash(p.spice?.p_who)}</td></tr>
-  <tr><th>Population — how they join</th><td>${orDash(p.spice?.p_recruitment)}</td></tr>
-  <tr><th>Intervention — what they experience</th><td>${orDash(p.spice?.i_what)}</td></tr>
-  <tr><th>Intervention — delivery model</th><td>${orDash(p.spice?.i_model)}</td></tr>
-  <tr><th>Change — the problem</th><td>${orDash(p.design?.problemStatement)}</td></tr>
-  <tr><th>Change — scope boundary</th><td>${orDash(p.design?.scopeBoundary)}</td></tr>
-  <tr><th>Change — what should change</th><td>${orDash(p.design?.expectedChange)}</td></tr>
-  <tr><th>Change — most fragile assumption</th><td>${orDash(p.design?.fragileAssumption)}</td></tr>
-  <tr><th>Change — Theory of Change document</th><td>${p.design?.tocDocExists === 'yes' && p.design?.tocDocLink ? esc(p.design.tocDocLink) : p.design?.tocDocExists === 'yes' ? 'Yes (no link recorded)' : p.design?.tocDocExists === 'no' ? 'Not yet' : p.design?.tocDocExists === 'na' ? 'Not sure / not relevant' : '<span class="empty">—</span>'}</td></tr>
-  <tr><th>Effect — longer-term difference</th><td>${orDash(p.spice?.e_effect)}</td></tr>
-</table>
+
+<div class="spice-block">
+  <h4 class="spice-heading">S — Setting &middot; <em>Where &amp; why</em></h4>
+  <p class="spice-q">Why does this project matter?</p>
+  <div class="spice-a">${orDash(p.spice?.s_context)}</div>
+  <p class="spice-q">Where will it run?</p>
+  <div class="spice-a">${orDash(p.spice?.s_where)}</div>
+</div>
+
+<div class="spice-block">
+  <h4 class="spice-heading">P — Population &middot; <em>Who &amp; how they join</em></h4>
+  <p class="spice-q">Who is it for?</p>
+  <div class="spice-a">${orDash(p.spice?.p_who)}</div>
+  <p class="spice-q">How will they join?</p>
+  <div class="spice-a">${orDash(p.spice?.p_recruitment)}</div>
+</div>
+
+<div class="spice-block">
+  <h4 class="spice-heading">I — Intervention &middot; <em>What we deliver</em></h4>
+  <p class="spice-q">What will participants experience?</p>
+  <div class="spice-a">${orDash(p.spice?.i_what)}</div>
+  <p class="spice-q">Delivery model</p>
+  <div class="spice-a">${orDash(p.spice?.i_model)}</div>
+</div>
+
+<div class="spice-block">
+  <h4 class="spice-heading">C — Change &middot; <em>The problem, the shift, the assumptions</em></h4>
+  <p class="spice-q">What problem is this project responding to?</p>
+  <div class="spice-a">${orDash(p.design?.problemStatement)}</div>
+  <p class="spice-q">What is this project explicitly NOT doing? (scope boundary)</p>
+  <div class="spice-a">${orDash(p.design?.scopeBoundary)}</div>
+  <p class="spice-q">What change should this project make, and for whom?</p>
+  <div class="spice-a">${orDash(p.design?.expectedChange)}</div>
+  <p class="spice-q">Most fragile assumption</p>
+  <div class="spice-a">${orDash(p.design?.fragileAssumption)}</div>
+  <p class="spice-q">Theory of Change document</p>
+  <div class="spice-a">${p.design?.tocDocExists === 'yes' && p.design?.tocDocLink ? `<a href="${esc(p.design.tocDocLink)}" style="color:#3E5A3A;">View document</a>` : p.design?.tocDocExists === 'yes' ? 'Yes — no link recorded' : p.design?.tocDocExists === 'no' ? 'Not yet developed' : '<span class="empty">—</span>'}</div>
+</div>
+
+<div class="spice-block">
+  <h4 class="spice-heading">E — Effect &middot; <em>So what — long term</em></h4>
+  <p class="spice-q">What's the longer-term difference?</p>
+  <div class="spice-a">${orDash(p.spice?.e_effect)}</div>
+</div>
 
 <h3>What will tell us it's working (2—3 things)</h3>
 <div class="field-value">${orDash(p.design?.keyIndicators)}</div>
