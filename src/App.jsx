@@ -1596,10 +1596,19 @@ function OperationaliseStage({ project, update, onAdvance }) {
 function MonitorStage({ project, update, onAdvance }) {
   const [adding, setAdding] = useState(false);
   const [addingChange, setAddingChange] = useState(false);
+  const [editingId, setEditingId] = useState(null);
 
   const addCheckIn = (entry) => {
     update(p => ({ ...p, checkIns: [...p.checkIns, { id: `c-${Date.now()}`, ...entry }] }));
     setAdding(false);
+  };
+  const saveEditedCheckIn = (id, entry) => {
+    update(p => ({ ...p, checkIns: p.checkIns.map(c => c.id === id ? { ...c, ...entry } : c) }));
+    setEditingId(null);
+  };
+  const deleteCheckIn = (id) => {
+    if (!confirm('Delete this check-in?')) return;
+    update(p => ({ ...p, checkIns: p.checkIns.filter(c => c.id !== id) }));
   };
   const addChange = (entry) => {
     update(p => ({ ...p, gates: { ...p.gates, 3: [...p.gates[3], { id: `g3-${Date.now()}`, ...entry }] } }));
@@ -1632,7 +1641,11 @@ function MonitorStage({ project, update, onAdvance }) {
         <div>
           <SectionLabel style={{ marginLeft: 4, marginBottom: 14 }}>Log</SectionLabel>
           <div style={{ display: 'grid', gap: 12 }}>
-            {[...project.checkIns].reverse().map(ci => <CheckInCard key={ci.id} ci={ci} />)}
+            {[...project.checkIns].reverse().map(ci =>
+              editingId === ci.id
+                ? <CheckInForm key={ci.id} initial={ci} onSave={(entry) => saveEditedCheckIn(ci.id, entry)} onCancel={() => setEditingId(null)} />
+                : <CheckInCard key={ci.id} ci={ci} onEdit={() => setEditingId(ci.id)} onDelete={() => deleteCheckIn(ci.id)} />
+            )}
           </div>
         </div>
       )}
@@ -1657,18 +1670,18 @@ function MonitorStage({ project, update, onAdvance }) {
   );
 }
 
-function CheckInForm({ onSave, onCancel }) {
-  const [date, setDate] = useState(todayISO());
-  const [ragDelivery, setRagDelivery] = useState('G');
-  const [ragFinance, setRagFinance] = useState('G');
-  const [working, setWorking] = useState('');
-  const [notWorking, setNotWorking] = useState('');
-  const [risks, setRisks] = useState('');
-  const [actions, setActions] = useState('');
+function CheckInForm({ onSave, onCancel, initial }) {
+  const [date, setDate] = useState(initial?.date ?? todayISO());
+  const [ragDelivery, setRagDelivery] = useState(initial?.ragDelivery ?? 'G');
+  const [ragFinance, setRagFinance] = useState(initial?.ragFinance ?? 'G');
+  const [working, setWorking] = useState(initial?.working ?? '');
+  const [notWorking, setNotWorking] = useState(initial?.notWorking ?? '');
+  const [risks, setRisks] = useState(initial?.risks ?? '');
+  const [actions, setActions] = useState(initial?.actions ?? '');
 
   return (
     <div className="card fade-up" style={{ borderColor: '#3E5A3A', borderWidth: 1 }}>
-      <SectionLabel>New check-in</SectionLabel>
+      <SectionLabel>{initial ? 'Edit check-in' : 'New check-in'}</SectionLabel>
       <div className="grid-2">
         <div className="field"><label>Date</label><input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></div>
         <div />
@@ -1680,7 +1693,7 @@ function CheckInForm({ onSave, onCancel }) {
       <div className="field"><label>Key risks (top 2-3)</label><textarea value={risks} onChange={(e) => setRisks(e.target.value)} /></div>
       <div className="field" style={{ marginBottom: 18 }}><label>Actions for next month</label><textarea value={actions} onChange={(e) => setActions(e.target.value)} placeholder="One per line â€” owner + due date" /></div>
       <div style={{ display: 'flex', gap: 10 }}>
-        <button className="btn btn-primary" onClick={() => onSave({ date, ragDelivery, ragFinance, working, notWorking, risks, actions })}>Save check-in</button>
+        <button className="btn btn-primary" onClick={() => onSave({ date, ragDelivery, ragFinance, working, notWorking, risks, actions })}>{initial ? 'Save changes' : 'Save check-in'}</button>
         <button className="btn btn-ghost" onClick={onCancel}>Cancel</button>
       </div>
     </div>
@@ -1719,17 +1732,21 @@ function RAGControl({ label, value, onChange }) {
   );
 }
 
-function CheckInCard({ ci }) {
+function CheckInCard({ ci, onEdit, onDelete }) {
   return (
     <div className="card" style={{ padding: 20 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12, flexWrap: 'wrap' }}>
         <strong style={{ fontFamily: 'Fraunces, serif', fontSize: 18, fontWeight: 400 }}>{ci.date}</strong>
         <span className="pill" style={{ background: ragMeta[ci.ragDelivery]?.bg, color: ragMeta[ci.ragDelivery]?.color }}>
-          Delivery Â· {ragMeta[ci.ragDelivery]?.label}
+          Delivery · {ragMeta[ci.ragDelivery]?.label}
         </span>
         <span className="pill" style={{ background: ragMeta[ci.ragFinance]?.bg, color: ragMeta[ci.ragFinance]?.color }}>
-          Finance Â· {ragMeta[ci.ragFinance]?.label}
+          Finance · {ragMeta[ci.ragFinance]?.label}
         </span>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+          <button className="btn btn-ghost" onClick={onEdit} style={{ fontSize: 12, padding: '4px 10px' }}>Edit</button>
+          <button className="btn btn-ghost" onClick={onDelete} style={{ fontSize: 12, padding: '4px 10px', color: '#9C3D2C' }}>Delete</button>
+        </div>
       </div>
       <div style={{ fontSize: 14, lineHeight: 1.6, display: 'grid', gap: 8 }}>
         {ci.working && <Detail label="Working" tone="green">{ci.working}</Detail>}
