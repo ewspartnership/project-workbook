@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // ============================================
 // PROJECT WORKBOOK v2
@@ -16,7 +16,7 @@ async function saveAll(items) {
   try { await window.storage.set(KEY, JSON.stringify(items)); } catch(e) {}
 }
 
-// Ensure projects loaded from storage have all current fields (additive only â€” never remove)
+// Ensure projects loaded from storage have all current fields (additive only — never remove)
 function migrate(p) {
   const fresh = newProject();
   return {
@@ -54,28 +54,28 @@ const newProject = () => ({
   // Stage 0: anchor (organisational strategic alignment)
   anchor: { strategicAlignment: '' },
   // Stage 1: Design
-  // Step 1 â€” Purpose & Scope: problem framing + SPICE as project description
-  // Step 2 â€” Theory of Change & Indicators (asked in plain English)
+  // Step 1 — Purpose & Scope: problem framing + SPICE as project description
+  // Step 2 — Theory of Change & Indicators (asked in plain English)
   design: {
-    // Step 1 â€” Purpose & Scope
+    // Step 1 — Purpose & Scope
     problemStatement: '',
     scopeBoundary: '',
-    // Step 2 â€” Theory of Change (in plain English)
+    // Step 2 — Theory of Change (in plain English)
     tocDocExists: '',         // 'yes' | 'no' | ''
     tocDocLink: '',
     expectedChange: '',       // outcomes pathway in plain English
     fragileAssumption: '',    // most fragile assumption + watch signal
-    // Step 2 â€” Indicators (in plain English)
+    // Step 2 — Indicators (in plain English)
     keyIndicators: '',        // 2-3 things that will tell us it's working
     whoMightBeMissed: '',     // disaggregation as a question
   },
-  // SPICE â€” kept as the project description spine (Setting, Population, Intervention, Effect)
+  // SPICE — kept as the project description spine (Setting, Population, Intervention, Effect)
   // Note: 'C' (Change) is now covered properly in the Theory of Change section above
   spice: {
     s_context: '', s_where: '',
     p_who: '', p_recruitment: '',
     i_what: '', i_model: '',
-    c_change: '', c_measure: '',  // legacy â€” kept so existing projects don't break, but UI no longer prompts
+    c_change: '', c_measure: '',  // legacy — kept so existing projects don't break, but UI no longer prompts
     e_effect: '',
     fixedDates: '', fundingAmount: '', fundingType: '',
     reportingDates: '', grantConditions: '',
@@ -99,22 +99,22 @@ const newProject = () => ({
   checkIns: [],
   // Stage 4: Close
   close: {
-    // Numbers â€” kept short, paired against Stage 1 promises in the UI
+    // Numbers — kept short, paired against Stage 1 promises in the UI
     sessionsPromised: '', sessionsDelivered: '',
     participantsPromised: '', participantsEngaged: '',
-    // Looking back â€” paired with Stage 1 commitments
+    // Looking back — paired with Stage 1 commitments
     problemReflection: '',         // did our framing of the problem hold up?
     changeReflection: '',          // did the change we expected actually happen, for whom?
     indicatorsReflection: '',      // what did the indicators tell us (numbers, observations, stories)?
     fragileAssumptionReflection: '', // did the fragile thing hold? what happened?
     missedReflection: '',          // who got missed / whose experience was different?
-    // Lessons forward â€” separate phase
+    // Lessons forward — separate phase
     surprised: '',
     whatToDoDifferently: '',
     bidLessons: '',
     // Budget
     budgetTotal: '', budgetActual: '', budgetVariance: '',
-    // Legacy fields kept so old projects don't lose data â€” UI no longer prompts for these by name
+    // Legacy fields kept so old projects don't lose data — UI no longer prompts for these by name
     quantHighlights: '', qualThemes: '', quote: '',
     whatWorked: '', whatDidnt: '',
     endChecklist: {
@@ -130,7 +130,7 @@ const newProject = () => ({
 const todayISO = () => new Date().toISOString().slice(0, 10);
 
 // ============================================
-// EXPORT â€” Project Sheet as Word doc
+// EXPORT — Project Sheet as Word doc
 // ============================================
 function exportProjectAsDoc(project) {
   const html = buildProjectSheetHTML(project);
@@ -148,9 +148,9 @@ function exportProjectAsDoc(project) {
 
 function buildProjectSheetHTML(p) {
   const esc = (s) => (s == null ? '' : String(s)).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>');
-  const orDash = (s) => (s && s.trim()) ? esc(s) : '<span class="empty">â€”</span>';
+  const orDash = (s) => (s && s.trim()) ? esc(s) : '<span class="empty">—</span>';
   const gate = (g) => g?.passed
-    ? `<strong>PASSED</strong> on ${esc(g.date)}${g.note ? ` â€” ${esc(g.note)}` : ''}`
+    ? `<strong>PASSED</strong> on ${esc(g.date)}${g.note ? ` — ${esc(g.note)}` : ''}`
     : '<span class="empty">Not yet passed</span>';
 
   const stageLabel = (p.stage || 'design');
@@ -186,7 +186,7 @@ function buildProjectSheetHTML(p) {
   return `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
 <head>
 <meta charset="utf-8">
-<title>${esc(p.name) || 'Untitled project'} â€” Project Sheet</title>
+<title>${esc(p.name) || 'Untitled project'} — Project Sheet</title>
 <style>
   body { font-family: Calibri, sans-serif; font-size: 11pt; color: #1F2419; line-height: 1.5; }
   h1 { font-size: 24pt; color: #3E5A3A; border-bottom: 2px solid #3E5A3A; padding-bottom: 6pt; margin-bottom: 4pt; }
@@ -228,31 +228,31 @@ function buildProjectSheetHTML(p) {
 </div>
 
 <!-- STAGE 0: ANCHOR -->
-<h2>Stage 0 â€” Strategic alignment</h2>
+<h2>Stage 0 — Strategic alignment</h2>
 <div class="anchor">
   <div class="field-label">Which organisational strategic priorities does this project serve?</div>
   <div class="field-value">${orDash(p.anchor?.strategicAlignment)}</div>
 </div>
 
 <!-- STAGE 1: DESIGN -->
-<h2>Stage 1 â€” Design</h2>
-<p class="subtitle">Step 1 â€” Purpose & Scope Â· Step 2 â€” The change & how we'll know</p>
+<h2>Stage 1 — Design</h2>
+<p class="subtitle">Step 1 — Purpose & Scope Â· Step 2 — The change & how we'll know</p>
 
 <h3>The problem statement</h3>
 <div class="field-value">${orDash(p.design?.problemStatement)}</div>
 
-<h3>Scope boundary â€” what this project is NOT doing</h3>
+<h3>Scope boundary — what this project is NOT doing</h3>
 <div class="field-value">${orDash(p.design?.scopeBoundary)}</div>
 
-<h3>SPICE â€” describing the project</h3>
+<h3>SPICE — describing the project</h3>
 <table>
-  <tr><th style="width:25%">Setting â€” why it matters</th><td>${orDash(p.spice?.s_context)}</td></tr>
-  <tr><th>Setting â€” where it runs</th><td>${orDash(p.spice?.s_where)}</td></tr>
-  <tr><th>Population â€” who it's for</th><td>${orDash(p.spice?.p_who)}</td></tr>
-  <tr><th>Population â€” how they join</th><td>${orDash(p.spice?.p_recruitment)}</td></tr>
-  <tr><th>Intervention â€” what they experience</th><td>${orDash(p.spice?.i_what)}</td></tr>
-  <tr><th>Intervention â€” delivery model</th><td>${orDash(p.spice?.i_model)}</td></tr>
-  <tr><th>Effect â€” longer-term difference</th><td>${orDash(p.spice?.e_effect)}</td></tr>
+  <tr><th style="width:25%">Setting — why it matters</th><td>${orDash(p.spice?.s_context)}</td></tr>
+  <tr><th>Setting — where it runs</th><td>${orDash(p.spice?.s_where)}</td></tr>
+  <tr><th>Population — who it's for</th><td>${orDash(p.spice?.p_who)}</td></tr>
+  <tr><th>Population — how they join</th><td>${orDash(p.spice?.p_recruitment)}</td></tr>
+  <tr><th>Intervention — what they experience</th><td>${orDash(p.spice?.i_what)}</td></tr>
+  <tr><th>Intervention — delivery model</th><td>${orDash(p.spice?.i_model)}</td></tr>
+  <tr><th>Effect — longer-term difference</th><td>${orDash(p.spice?.e_effect)}</td></tr>
 </table>
 
 <h3>The change this project should make</h3>
@@ -262,7 +262,7 @@ ${p.design?.tocDocExists === 'yes' && p.design?.tocDocLink ? `<div class="meta">
 <h3>Most fragile thing this project depends on</h3>
 <div class="field-value">${orDash(p.design?.fragileAssumption)}</div>
 
-<h3>What will tell us it's working (2â€“3 things)</h3>
+<h3>What will tell us it's working (2—3 things)</h3>
 <div class="field-value">${orDash(p.design?.keyIndicators)}</div>
 
 <h3>Whose experience might these miss</h3>
@@ -277,12 +277,12 @@ ${p.design?.tocDocExists === 'yes' && p.design?.tocDocLink ? `<div class="meta">
 </table>
 
 <div class="gate-block">
-  <strong>Gate 1 â€” Design sign-off:</strong> ${gate(p.gates?.[1])}
+  <strong>Gate 1 — Design sign-off:</strong> ${gate(p.gates?.[1])}
 </div>
 
 <!-- STAGE 2: OPERATIONALISE -->
-<h2>Stage 2 â€” Operationalise</h2>
-<p class="subtitle">Steps 3â€“4 â€” Data systems & roles</p>
+<h2>Stage 2 — Operationalise</h2>
+<p class="subtitle">Steps 3—4 — Data systems & roles</p>
 
 <h3>Roles</h3>
 <table>
@@ -311,12 +311,12 @@ ${p.design?.tocDocExists === 'yes' && p.design?.tocDocLink ? `<div class="meta">
 ${p.ops?.notes ? `<div class="field-label">Other notes</div><div class="field-value">${esc(p.ops.notes)}</div>` : ''}
 
 <div class="gate-block">
-  <strong>Gate 2 â€” Ready to deliver:</strong> ${gate(p.gates?.[2])}
+  <strong>Gate 2 — Ready to deliver:</strong> ${gate(p.gates?.[2])}
 </div>
 
 <!-- STAGE 3: MONITOR -->
-<h2>Stage 3 â€” Monitor</h2>
-<p class="subtitle">Step 5 â€” Analyse, report, communicate (lightly, monthly)</p>
+<h2>Stage 3 — Monitor</h2>
+<p class="subtitle">Step 5 — Analyse, report, communicate (lightly, monthly)</p>
 
 ${checkInRows ? `
 <h3>Monthly check-in log</h3>
@@ -332,8 +332,8 @@ ${changeBlocks}
 ` : '<p><span class="empty">No material changes logged.</span></p>'}
 
 <!-- STAGE 4: CLOSE & LEARN -->
-<h2>Stage 4 â€” Close & Learn</h2>
-<p class="subtitle">Step 6 â€” Apply learning, adapt</p>
+<h2>Stage 4 — Close & Learn</h2>
+<p class="subtitle">Step 6 — Apply learning, adapt</p>
 
 <h3>Delivered vs promised</h3>
 <table>
@@ -341,7 +341,7 @@ ${changeBlocks}
   <tr><th>Participants</th><td>Promised: ${orDash(p.close?.participantsPromised)} &nbsp;/&nbsp; Engaged: ${orDash(p.close?.participantsEngaged)}</td></tr>
 </table>
 
-<h3>Looking back â€” what was said, what happened</h3>
+<h3>Looking back — what was said, what happened</h3>
 ${mirrorPair('The problem', p.design?.problemStatement, p.close?.problemReflection)}
 ${mirrorPair('The change', p.design?.expectedChange, p.close?.changeReflection)}
 ${mirrorPair('What we said we would watch', p.design?.keyIndicators, p.close?.indicatorsReflection)}
@@ -364,7 +364,7 @@ ${mirrorPair('Whose experience', p.design?.whoMightBeMissed, p.close?.missedRefl
 <div class="field-value">${orDash(p.close?.bidLessons)}</div>
 
 <div class="gate-block">
-  <strong>Gate 4 â€” Project complete:</strong> ${gate(p.gates?.[4])}
+  <strong>Gate 4 — Project complete:</strong> ${gate(p.gates?.[4])}
 </div>
 
 <div class="footer">
@@ -390,7 +390,7 @@ const SPICE_SECTIONS = [
     letter: 'P', name: 'Population', tagline: 'Who & how they join',
     fields: [
       { key: 'p_who', label: 'Who is it for?', placeholder: 'Target group, inclusion, adjustments' },
-      { key: 'p_recruitment', label: 'How will they join?', placeholder: 'Referral, open sign-up, mixed â€” and the pipeline partners' },
+      { key: 'p_recruitment', label: 'How will they join?', placeholder: 'Referral, open sign-up, mixed — and the pipeline partners' },
     ],
   },
   {
@@ -401,11 +401,11 @@ const SPICE_SECTIONS = [
     ],
   },
   // C (Change) is now covered properly by the Theory of Change & Indicators section
-  // â€” kept out of SPICE here so we don't ask the same question twice
+  // — kept out of SPICE here so we don't ask the same question twice
   {
-    letter: 'E', name: 'Effect', tagline: 'So what â€” long-term',
+    letter: 'E', name: 'Effect', tagline: 'So what — long-term',
     fields: [
-      { key: 'e_effect', label: 'What's the longer-term difference?', placeholder: 'Why it matters beyond the project â€” the impact-level change' },
+      { key: 'e_effect', label: "What's the longer-term difference?", placeholder: 'Why it matters beyond the project — the impact-level change' },
     ],
   },
 ];
@@ -414,18 +414,18 @@ const SPICE_SECTIONS = [
 function gapQuestions(p) {
   const q = [];
   if (!p.anchor.strategicAlignment?.trim()) q.push('Which of our organisational strategic priorities does this project serve?');
-  // Step 1 â€” Purpose & Scope
-  if (!p.design.problemStatement?.trim()) q.push('What's the problem we're trying to address?');
-  if (!p.spice.s_context?.trim()) q.push('What's the context â€” why does this project matter and what realities are on the ground?');
+  // Step 1 — Purpose & Scope
+  if (!p.design.problemStatement?.trim()) q.push("What's the problem we're trying to address?");
+  if (!p.spice.s_context?.trim()) q.push("What's the context — why does this project matter and what realities are on the ground?");
   if (!p.spice.s_where?.trim()) q.push('Where exactly will it run, and are sites confirmed?');
   if (!p.spice.p_who?.trim()) q.push('Who is the target group?');
-  if (!p.spice.p_recruitment?.trim()) q.push('How will participants join â€” referral, open sign-up, or mixed? Who are the pipeline partners?');
+  if (!p.spice.p_recruitment?.trim()) q.push('How will participants join — referral, open sign-up, or mixed? Who are the pipeline partners?');
   if (!p.spice.i_what?.trim()) q.push('In plain English, what will participants actually experience?');
-  if (!p.spice.i_model?.trim()) q.push('What's the delivery model â€” frequency, duration, ratios?');
-  if (!p.spice.e_effect?.trim()) q.push('What's the longer-term difference this should make?');
-  // Step 2 â€” Theory of Change & Indicators (in plain English)
+  if (!p.spice.i_model?.trim()) q.push("What's the delivery model — frequency, duration, ratios?");
+  if (!p.spice.e_effect?.trim()) q.push("What's the longer-term difference this should make?");
+  // Step 2 — Theory of Change & Indicators (in plain English)
   if (!p.design.expectedChange?.trim()) q.push('What change should this project make, and for whom?');
-  if (!p.design.fragileAssumption?.trim()) q.push('What's the most fragile thing this project depends on \u2014 something that could derail it if it doesn't hold?');
+  if (!p.design.fragileAssumption?.trim()) q.push("What's the most fragile thing this project depends on \u2014 something that could derail it if it doesn't hold?");
   if (!p.design.keyIndicators?.trim()) q.push('What 2\u20133 things will tell us this is working?');
   // Money & reporting
   if (!p.spice.fundingAmount?.trim()) q.push('Total funding, and is it restricted, unrestricted, or mixed?');
@@ -434,7 +434,7 @@ function gapQuestions(p) {
   return q;
 }
 
-// Gate 1 essentials â€” the minimum needed to honestly say the project's design is realistic enough to commit to
+// Gate 1 essentials — the minimum needed to honestly say the project's design is realistic enough to commit to
 const gate1Ready = (p) => {
   return !!(
     p.design.problemStatement?.trim() &&
@@ -731,7 +731,7 @@ function Home({ projects, onOpen, onAdd, onDelete, onMethodology }) {
               <span style={{ fontStyle: 'italic', fontWeight: 300 }}>for running projects well.</span>
             </h1>
             <p style={{ marginTop: 18, fontSize: 17, color: '#5A5249', maxWidth: 560, lineHeight: 1.5 }}>
-              From first idea to final learning â€” helping small teams design clearly, stay on track, and learn as they go.
+              From first idea to final learning — helping small teams design clearly, stay on track, and learn as they go.
             </p>
           </div>
           <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
@@ -769,7 +769,7 @@ function Home({ projects, onOpen, onAdd, onDelete, onMethodology }) {
 function EmptyHome({ onAdd }) {
   return (
     <div className="card fade-up" style={{ textAlign: 'center', padding: '72px 32px' }}>
-      <div style={{ fontSize: 64, fontFamily: 'Fraunces, serif', fontStyle: 'italic', color: '#A8763E', lineHeight: 1, marginBottom: 16 }}>â€”</div>
+      <div style={{ fontSize: 64, fontFamily: 'Fraunces, serif', fontStyle: 'italic', color: '#A8763E', lineHeight: 1, marginBottom: 16 }}>—</div>
       <p style={{ fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 300, color: '#2C2A26', maxWidth: 480, margin: '0 auto 8px' }}>
         Every project begins with a brief landing somewhere.
       </p>
@@ -864,8 +864,8 @@ function stageStatus(project, stageKey) {
 
 function CycleHub({ project, onSelectStage, currentStage }) {
   const stages = [
-    { key: 'design',         angle: -90, label: 'Design',         n: '01', root: 'Purpose',         color: '#7C5C3B', mel: 'Steps 1â€“2 Â· Purpose, ToC, indicators' },
-    { key: 'operationalise', angle: 0,   label: 'Operationalise', n: '02', root: 'People & Plan',  color: '#A8763E', mel: 'Steps 3â€“4 Â· Data systems, roles' },
+    { key: 'design',         angle: -90, label: 'Design',         n: '01', root: 'Purpose',         color: '#7C5C3B', mel: 'Steps 1—2 Â· Purpose, ToC, indicators' },
+    { key: 'operationalise', angle: 0,   label: 'Operationalise', n: '02', root: 'People & Plan',  color: '#A8763E', mel: 'Steps 3—4 Â· Data systems, roles' },
     { key: 'monitor',        angle: 90,  label: 'Monitor',        n: '03', root: 'Progress',       color: '#3E5A3A', mel: 'Step 5 Â· Analyse, report, communicate' },
     { key: 'close',          angle: 180, label: 'Close & Learn',  n: '04', root: 'Performance',    color: '#5A4A3D', mel: 'Step 6 Â· Apply learning, adapt' },
   ];
@@ -878,20 +878,20 @@ function CycleHub({ project, onSelectStage, currentStage }) {
     <div className="cycle-hub">
       <svg className="cycle-svg" viewBox="0 0 540 540">
         <defs>
-          {/* Big chunky arrowhead â€” passed (green) */}
+          {/* Big chunky arrowhead — passed (green) */}
           <marker id="arrowPassed" viewBox="0 0 14 14" refX="6" refY="7" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
             <path d="M 1 1 L 12 7 L 1 13 z" fill="#3E5A3A" />
           </marker>
-          {/* Big chunky arrowhead â€” pending (warm grey/brown) */}
+          {/* Big chunky arrowhead — pending (warm grey/brown) */}
           <marker id="arrowPending" viewBox="0 0 14 14" refX="6" refY="7" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
             <path d="M 1 1 L 12 7 L 1 13 z" fill="#A8763E" opacity="0.7" />
           </marker>
         </defs>
 
-        {/* Outer pencil ring â€” keeps the field-journal feel */}
+        {/* Outer pencil ring — keeps the field-journal feel */}
         <circle cx={cx} cy={cy} r={r + 56} fill="none" stroke="#C9BCA5" strokeWidth="0.6" strokeDasharray="0.5 5" opacity="0.45" />
 
-        {/* THE FOUR ARROWS â€” one per stage transition */}
+        {/* THE FOUR ARROWS — one per stage transition */}
         {stages.map((s, i) => {
           const next = stages[(i + 1) % stages.length];
           const a1 = (s.angle * Math.PI) / 180;
@@ -923,7 +923,7 @@ function CycleHub({ project, onSelectStage, currentStage }) {
           );
         })}
 
-        {/* Centre â€” Strategy / Anchor */}
+        {/* Centre — Strategy / Anchor */}
         <g>
           <circle cx={cx} cy={cy} r="72" fill="#FFFCF4" stroke="#C9BCA5" strokeWidth="1" />
           <circle cx={cx} cy={cy} r="58" fill="none" stroke="#3E5A3A" strokeWidth="0.7" opacity="0.3" />
@@ -1007,7 +1007,7 @@ function CycleHub({ project, onSelectStage, currentStage }) {
                   fill: isPassed ? '#F5EFE3' : s.color,
                   fontWeight: 400,
                 }}
-              >{isPassed ? 'âœ“' : (isInProgress ? 'â—' : 'â—‹')}</text>
+              >{isPassed ? 'âœ"' : (isInProgress ? 'â—' : 'â—‹')}</text>
 
               {/* External label */}
               <text
@@ -1053,7 +1053,7 @@ function CycleKey() {
   const items = [
     { mark: 'â—‹', label: 'open' },
     { mark: 'â—', label: 'in progress' },
-    { mark: 'âœ“', label: 'gate passed' },
+    { mark: 'âœ"', label: 'gate passed' },
   ];
   return (
     <div style={{ display: 'flex', justifyContent: 'center', gap: 24, marginTop: 8, flexWrap: 'wrap' }}>
@@ -1124,7 +1124,7 @@ function ProjectView({ project, update, onBack, onDelete, onMethodology }) {
       <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32, flexWrap: 'wrap', gap: 12 }}>
         <button className="btn btn-ghost" onClick={onBack} style={{ marginLeft: -12 }}>â† All projects</button>
         <div style={{ display: 'flex', gap: 4 }}>
-          <button className="btn btn-ghost" onClick={() => exportProjectAsDoc(project)} style={{ fontSize: 12 }}>â†“ Export Project Sheet</button>
+          <button className="btn btn-ghost" onClick={() => exportProjectAsDoc(project)} style={{ fontSize: 12 }}>â†" Export Project Sheet</button>
           <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12 }}>About this approach</button>
           <button className="btn btn-ghost" onClick={onDelete} style={{ fontSize: 12, color: '#9C3D2C' }}>Delete</button>
         </div>
@@ -1199,21 +1199,21 @@ function DesignStage({ project, update, onAdvance }) {
         <SectionLabel>Stage 0 Â· the anchor</SectionLabel>
         <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>Strategic alignment</h3>
         <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', lineHeight: 1.55, marginBottom: 18 }}>
-          Before any design work, name how this project sits within the wider organisational strategy. If you can't say which priorities it serves, that's the first question worth answering â€” for the project, and possibly for the strategy.
+          Before any design work, name how this project sits within the wider organisational strategy. If you can't say which priorities it serves, that's the first question worth answering — for the project, and possibly for the strategy.
         </p>
         <div className="field" style={{ marginBottom: 0 }}>
           <label>Which organisational strategic priorities does this project serve?</label>
           <textarea
             value={project.anchor.strategicAlignment}
             onChange={(e) => setAnchor({ strategicAlignment: e.target.value })}
-            placeholder="e.g. Strand 2 â€” nature-connected youth provision Â· Strand 4 â€” building practitioner network in the East"
+            placeholder="e.g. Strand 2 — nature-connected youth provision Â· Strand 4 — building practitioner network in the East"
           />
         </div>
       </div>
 
       <StepDivider n="01" title="Purpose & Scope" subtitle="What problem are we actually responding to, and what is this project doing about it?" />
 
-      {/* Problem statement â€” opens Step 1 */}
+      {/* Problem statement — opens Step 1 */}
       <div className="card">
         <SectionLabel>Problem framing</SectionLabel>
         <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>The problem statement</h3>
@@ -1234,12 +1234,12 @@ function DesignStage({ project, update, onAdvance }) {
           <textarea
             value={project.design.scopeBoundary}
             onChange={(e) => setDesign({ scopeBoundary: e.target.value })}
-            placeholder="What we might get asked to add but won't â€” keeps us honest"
+            placeholder="What we might get asked to add but won't — keeps us honest"
           />
         </div>
       </div>
 
-      {/* SPICE â€” the project description spine (S, P, I, E) */}
+      {/* SPICE — the project description spine (S, P, I, E) */}
       {SPICE_SECTIONS.map((section) => (
         <div className="card" key={section.letter}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 6 }}>
@@ -1266,12 +1266,12 @@ function DesignStage({ project, update, onAdvance }) {
 
       <StepDivider n="02" title="The change & how we&rsquo;ll know" subtitle="What change should this project make, what are we assuming, and what will tell us it&rsquo;s working?" />
 
-      {/* The change â€” plain-English Theory of Change */}
+      {/* The change — plain-English Theory of Change */}
       <div className="card">
         <SectionLabel>The change</SectionLabel>
         <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>What should this project change?</h3>
         <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', lineHeight: 1.55, marginBottom: 18 }}>
-          The project exists to change something for someone. Be specific about who, and what's different by the end. Plain English is fine â€” short sentences, no jargon.
+          The project exists to change something for someone. Be specific about who, and what's different by the end. Plain English is fine — short sentences, no jargon.
         </p>
 
         <div className="field" style={{ marginBottom: 16 }}>
@@ -1335,17 +1335,17 @@ function DesignStage({ project, update, onAdvance }) {
             style={{ minHeight: 90 }}
           />
           <WhyExpander label="Why this matters">
-            Most projects rest on assumptions that nobody names. Naming the most fragile one â€” and saying what would tell us it's breaking â€” is the assumption-audit move from MEL practice. It turns a hidden risk into something the team can actually watch for.
+            Most projects rest on assumptions that nobody names. Naming the most fragile one — and saying what would tell us it's breaking — is the assumption-audit move from MEL practice. It turns a hidden risk into something the team can actually watch for.
           </WhyExpander>
         </div>
       </div>
 
-      {/* What will tell us it's working â€” plain-English indicators */}
+      {/* What will tell us it's working — plain-English indicators */}
       <div className="card">
         <SectionLabel>How we&rsquo;ll know</SectionLabel>
         <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>What will tell us it&rsquo;s working?</h3>
         <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', lineHeight: 1.55, marginBottom: 18 }}>
-          Pick a small number of things that genuinely matter. A mix of easy-to-count and harder-to-see is best. Two or three is plenty â€” resist the urge to measure everything.
+          Pick a small number of things that genuinely matter. A mix of easy-to-count and harder-to-see is best. Two or three is plenty — resist the urge to measure everything.
         </p>
 
         <div className="field" style={{ marginBottom: 16 }}>
@@ -1417,7 +1417,7 @@ function DesignStage({ project, update, onAdvance }) {
 
       <GatePanel
         n={1}
-        title="Gate 1 â€” Design sign-off"
+        title="Gate 1 — Design sign-off"
         intent="Is this realistic enough to submit, or to accept?"
         ready={ready}
         gate={gate}
@@ -1431,7 +1431,7 @@ function DesignStage({ project, update, onAdvance }) {
   );
 }
 
-// Expandable "why this matters" â€” quietly reveals the methodology behind a plain-English question
+// Expandable "why this matters" — quietly reveals the methodology behind a plain-English question
 function WhyExpander({ label, children }) {
   const [open, setOpen] = useState(false);
   return (
@@ -1495,7 +1495,7 @@ function QuestionsForLead({ questions }) {
         onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1800); }}
         style={{ fontSize: 12 }}
       >
-        {copied ? 'Copied âœ“' : 'Copy as message'}
+        {copied ? 'Copied âœ"' : 'Copy as message'}
       </button>
     </div>
   );
@@ -1574,7 +1574,7 @@ function OperationaliseStage({ project, update, onAdvance }) {
 
       <GatePanel
         n={2}
-        title="Gate 2 â€” Ready to deliver"
+        title="Gate 2 — Ready to deliver"
         intent="Are we genuinely ready to start?"
         ready={ready}
         gate={gate}
@@ -1623,14 +1623,14 @@ function MonitorStage({ project, update, onAdvance }) {
         <SectionLabel>Heartbeat</SectionLabel>
         <h3 style={{ margin: '0 0 6px', fontSize: 22, fontWeight: 400 }}>Monthly check-ins</h3>
         <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', marginBottom: 18 }}>
-          Ten minutes a month. Not a status report â€” a chance to be honest about what's working and what isn't.
+          Ten minutes a month. Not a status report — a chance to be honest about what's working and what isn't.
         </p>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           <button className="btn btn-primary" onClick={() => setAdding(true)}>+ Add check-in</button>
           <button className="btn btn-secondary" onClick={() => setAddingChange(true)}>Log a material change</button>
         </div>
         <p style={{ fontSize: 12, color: '#8A7D6A', marginTop: 14, lineHeight: 1.55, marginBottom: 0 }}>
-          Material change = anything affecting time, cost, scope, safeguarding, or reporting. Most months you won't need this. That's fine â€” that's the point.
+          Material change = anything affecting time, cost, scope, safeguarding, or reporting. Most months you won't need this. That's fine — that's the point.
         </p>
       </div>
 
@@ -1691,7 +1691,7 @@ function CheckInForm({ onSave, onCancel, initial }) {
       <div className="field"><label>What's working</label><textarea value={working} onChange={(e) => setWorking(e.target.value)} /></div>
       <div className="field"><label>What's not</label><textarea value={notWorking} onChange={(e) => setNotWorking(e.target.value)} /></div>
       <div className="field"><label>Key risks (top 2-3)</label><textarea value={risks} onChange={(e) => setRisks(e.target.value)} /></div>
-      <div className="field" style={{ marginBottom: 18 }}><label>Actions for next month</label><textarea value={actions} onChange={(e) => setActions(e.target.value)} placeholder="One per line â€” owner + due date" /></div>
+      <div className="field" style={{ marginBottom: 18 }}><label>Actions for next month</label><textarea value={actions} onChange={(e) => setActions(e.target.value)} placeholder="One per line — owner + due date" /></div>
       <div style={{ display: 'flex', gap: 10 }}>
         <button className="btn btn-primary" onClick={() => onSave({ date, ragDelivery, ragFinance, working, notWorking, risks, actions })}>{initial ? 'Save changes' : 'Save check-in'}</button>
         <button className="btn btn-ghost" onClick={onCancel}>Cancel</button>
@@ -1843,15 +1843,15 @@ function CloseStage({ project, update }) {
     <div style={{ display: 'grid', gap: 32 }}>
       <StageHeader n="04" name="Close & Learn" root="Performance" intent="Look back honestly at what you said you'd do, then carry the learning forward." />
 
-      {/* PHASE 1 â€” LOOKING BACK */}
-      <StepDivider n="A" title="Looking back" subtitle="For each thing you committed to in Stage 1, what actually happened? Be honest â€” the workbook only earns its keep if this section does." />
+      {/* PHASE 1 — LOOKING BACK */}
+      <StepDivider n="A" title="Looking back" subtitle="For each thing you committed to in Stage 1, what actually happened? Be honest — the workbook only earns its keep if this section does." />
 
-      {/* The numbers â€” paired against Stage 1 commitments */}
+      {/* The numbers — paired against Stage 1 commitments */}
       <div className="card">
         <SectionLabel>The numbers</SectionLabel>
         <h3 style={{ margin: '0 0 6px', fontSize: 22, fontWeight: 400 }}>Delivered vs promised</h3>
         <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', marginBottom: 20 }}>
-          The headline figures. Variance is fine â€” what matters is the honest number with a brief explanation later.
+          The headline figures. Variance is fine — what matters is the honest number with a brief explanation later.
         </p>
         <div className="grid-2">
           <div className="field"><label>Sessions promised</label><input type="text" value={project.close.sessionsPromised} onChange={(e) => setClose({ sessionsPromised: e.target.value })} /></div>
@@ -1861,7 +1861,7 @@ function CloseStage({ project, update }) {
         </div>
       </div>
 
-      {/* Mirror â€” the problem */}
+      {/* Mirror — the problem */}
       <MirrorBlock
         label="The problem"
         promiseLabel="The problem we said we were responding to"
@@ -1873,7 +1873,7 @@ function CloseStage({ project, update }) {
         placeholder="e.g. The problem was sharper than we expected. The young people we worked with didn't just struggle in mainstream &mdash; many had already disengaged completely. The pitch needed adjusting on day one."
       />
 
-      {/* Mirror â€” the change */}
+      {/* Mirror — the change */}
       <MirrorBlock
         label="The change"
         promiseLabel="The change we said we'd make"
@@ -1885,7 +1885,7 @@ function CloseStage({ project, update }) {
         placeholder="e.g. Most participants showed real shifts in confidence and group belonging. The 'still in education at 6 months' outcome held for 7 of 10. For two young people, the change was much smaller &mdash; both had situations outside our control going on at home."
       />
 
-      {/* Mirror â€” the indicators */}
+      {/* Mirror — the indicators */}
       <MirrorBlock
         label="What we said we'd watch"
         promiseLabel="The 2&ndash;3 things we said would tell us it's working"
@@ -1898,7 +1898,7 @@ function CloseStage({ project, update }) {
         moreLines
       />
 
-      {/* Mirror â€” the fragile assumption */}
+      {/* Mirror — the fragile assumption */}
       <MirrorBlock
         label="The fragile thing"
         promiseLabel="The most fragile thing we said this project depended on"
@@ -1910,7 +1910,7 @@ function CloseStage({ project, update }) {
         placeholder="e.g. It half-held. Referrals from the named teacher came through fine for cohort 1, but when she went on sick leave in October we couldn't fill cohort 2. Lesson: never let referrals depend on one named person."
       />
 
-      {/* Mirror â€” who might have been missed */}
+      {/* Mirror — who might have been missed */}
       <MirrorBlock
         label="Whose experience"
         promiseLabel="Who we said we'd watch wasn't getting missed"
@@ -1933,7 +1933,7 @@ function CloseStage({ project, update }) {
         <div className="field" style={{ marginBottom: 0 }}><label>Variance &mdash; one or two lines</label><textarea value={project.close.budgetVariance} onChange={(e) => setClose({ budgetVariance: e.target.value })} placeholder="e.g. Underspend of \u00a31,200 \u2014 lower transport costs as fewer cohort-2 sessions ran." /></div>
       </div>
 
-      {/* PHASE 2 â€” LESSONS FORWARD */}
+      {/* PHASE 2 — LESSONS FORWARD */}
       <StepDivider n="B" title="Lessons forward" subtitle="Now lift up &mdash; what does this whole project tell us about how to do the next one better?" />
 
       <div className="card" style={{ background: '#F0E8D5' }}>
@@ -2016,14 +2016,14 @@ function CloseStage({ project, update }) {
   );
 }
 
-// MirrorBlock â€” pairs a Stage 1 commitment with a "what happened" reflection
+// MirrorBlock — pairs a Stage 1 commitment with a "what happened" reflection
 function MirrorBlock({ label, promiseLabel, promise, question, hint, value, onChange, placeholder, moreLines }) {
   const hasPromise = promise && promise.trim();
   return (
     <div className="card">
       <SectionLabel>{label}</SectionLabel>
 
-      {/* What was said in Stage 1 â€” pulled forward, shown but not editable here */}
+      {/* What was said in Stage 1 — pulled forward, shown but not editable here */}
       <div style={{
         background: '#F5EFE3',
         border: '1px solid #D9CDB5',
@@ -2099,7 +2099,7 @@ function GatePanel({ n, title, intent, ready, gate, priorGatePassed, priorGateNa
     <div className="card" style={{ background: bg, borderColor: border, borderWidth: 1 }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
         <span className="hand" style={{ fontSize: 32, color: passed ? '#3E5A3A' : (blocked ? '#A8763E' : '#A8763E'), lineHeight: 1 }}>
-          {passed ? 'âœ“' : (blocked ? '!' : (ready ? 'â—‹' : 'â—Œ'))}
+          {passed ? 'âœ"' : (blocked ? '!' : (ready ? 'â—‹' : 'â—Œ'))}
         </span>
         <div style={{ flex: 1, minWidth: 200 }}>
           <h3 style={{ margin: 0, fontSize: 22, fontWeight: 400 }}>{title}</h3>
@@ -2117,7 +2117,7 @@ function GatePanel({ n, title, intent, ready, gate, priorGatePassed, priorGateNa
         ) : blocked && !confirmOverride ? (
           <div>
             <p style={{ margin: '0 0 12px', fontSize: 14, color: '#7A5A1E', lineHeight: 1.55 }}>
-              <strong style={{ fontWeight: 500 }}>{priorGateName} hasn't been passed yet.</strong> The methodology asks you to sign that off first â€” it's the discipline that stops projects moving forward before they're ready. You can pass anyway if you have a good reason (e.g. back-filling documentation), but consider going back first.
+              <strong style={{ fontWeight: 500 }}>{priorGateName} hasn't been passed yet.</strong> The methodology asks you to sign that off first — it's the discipline that stops projects moving forward before they're ready. You can pass anyway if you have a good reason (e.g. back-filling documentation), but consider going back first.
             </p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <button className="btn btn-secondary" onClick={() => setConfirmOverride(true)}>Pass anyway</button>
@@ -2127,7 +2127,7 @@ function GatePanel({ n, title, intent, ready, gate, priorGatePassed, priorGateNa
           <div>
             {blocked && confirmOverride && (
               <p style={{ margin: '0 0 10px', fontSize: 13, color: '#7A5A1E', fontStyle: 'italic' }}>
-                Overriding â€” {priorGateName} not passed. Add a note explaining why.
+                Overriding — {priorGateName} not passed. Add a note explaining why.
               </p>
             )}
             <p style={{ margin: '0 0 12px', fontSize: 14, color: '#3E5A3A', fontStyle: 'italic' }}>{readyMsg}</p>
@@ -2153,7 +2153,7 @@ function GatePanel({ n, title, intent, ready, gate, priorGatePassed, priorGateNa
 function LockedStage({ stage, requires }) {
   return (
     <div className="card" style={{ textAlign: 'center', padding: '64px 32px' }}>
-      <div className="hand" style={{ fontSize: 48, color: '#C9BCA5', marginBottom: 12 }}>â€”</div>
+      <div className="hand" style={{ fontSize: 48, color: '#C9BCA5', marginBottom: 12 }}>—</div>
       <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400, fontStyle: 'italic' }}>{stage} is closed for now</h3>
       <p style={{ margin: 0, fontSize: 14, color: '#5A5249' }}>Pass {requires} first to open this stage.</p>
     </div>
@@ -2175,50 +2175,50 @@ function Methodology({ onBack }) {
         About this approach
       </h1>
       <p style={{ fontSize: 18, color: '#5A5249', lineHeight: 1.6, marginBottom: 12 }}>
-        This workbook isn't a methodology â€” it's a practical project structure shaped by three strands of thinking:
+        This workbook isn't a methodology — it's a practical project structure shaped by three strands of thinking:
       </p>
       <p style={{ fontSize: 16, color: '#5A5249', lineHeight: 1.65, marginBottom: 40, fontStyle: 'italic' }}>
         Project management discipline. Outcome-thinking. And a structure that makes both useable for small teams running real work in the real world.
       </p>
 
       <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Root 5 <span style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'normal' }}>â€” Tearfund</span></h2>
+        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Root 5 <span style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'normal' }}>— Tearfund</span></h2>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
-          Five ideas every project needs to hold together â€” <em>Purpose, People, Plan, Progress, Performance.</em> Tearfund developed Root 5 as a way of giving charity teams without dedicated project managers a shared language for their work. The four stages of this workbook map onto the last four. Stage 0 â€” Strategy â€” anchors the whole cycle, holding Purpose.
+          Five ideas every project needs to hold together — <em>Purpose, People, Plan, Progress, Performance.</em> Tearfund developed Root 5 as a way of giving charity teams without dedicated project managers a shared language for their work. The four stages of this workbook map onto the last four. Stage 0 — Strategy — anchors the whole cycle, holding Purpose.
         </p>
       </section>
 
       <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>SPICE <span style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'normal' }}>â€” a way of describing a project</span></h2>
+        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>SPICE <span style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'normal' }}>— a way of describing a project</span></h2>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginBottom: 12 }}>
           A simple frame for describing a project so that anyone picking up the brief can picture what it actually is. Five letters, five answers:
         </p>
         <ul style={{ fontSize: 15, lineHeight: 1.85, color: '#3D3933', paddingLeft: 24 }}>
-          <li><strong>Setting</strong> â€” where it runs and why it matters</li>
-          <li><strong>Population</strong> â€” who it's for and how they join</li>
-          <li><strong>Intervention</strong> â€” what we deliver</li>
-          <li><strong>Change</strong> â€” what should improve, and how we'll know</li>
-          <li><strong>Effect</strong> â€” the longer-term difference</li>
+          <li><strong>Setting</strong> — where it runs and why it matters</li>
+          <li><strong>Population</strong> — who it's for and how they join</li>
+          <li><strong>Intervention</strong> — what we deliver</li>
+          <li><strong>Change</strong> — what should improve, and how we'll know</li>
+          <li><strong>Effect</strong> — the longer-term difference</li>
         </ul>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginTop: 12 }}>
-          SPICE forms the spine of Stage 1 (Design). If you can't fill in SPICE, you don't yet have a project â€” you have an idea.
+          SPICE forms the spine of Stage 1 (Design). If you can't fill in SPICE, you don't yet have a project — you have an idea.
         </p>
       </section>
 
       <section style={{ marginBottom: 48 }}>
         <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>
-          Clarity-to-ImpactÂ® <span style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'normal' }}>â€” Ann-Murray Brown</span>
+          Clarity-to-ImpactÂ® <span style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'normal' }}>— Ann-Murray Brown</span>
         </h2>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginBottom: 12 }}>
           Clarity-to-ImpactÂ® is a registered MEL methodology developed by Ann-Murray Brown, used by practitioners across UN agencies, INGOs and foundations. It moves teams from <em>activity tracking</em> ("we ran 12 sessions") to <em>showing evidence of change</em> ("here's what shifted, for whom, and how we know").
         </p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginBottom: 12 }}>
-          I trained in this programme and the tool you're using here reflects what I took from it â€” particularly:
+          I trained in this programme and the tool you're using here reflects what I took from it — particularly:
         </p>
         <ul style={{ fontSize: 15, lineHeight: 1.85, color: '#3D3933', paddingLeft: 24 }}>
           <li>getting the problem statement right before designing the response</li>
           <li>using a Theory of Change to name assumptions, not just outcomes</li>
-          <li>choosing indicators that show who is benefiting â€” not just how many people attended</li>
+          <li>choosing indicators that show who is benefiting — not just how many people attended</li>
           <li>using complexity-aware methods (like Most Significant Change) alongside metrics, to capture what didn't fit the plan</li>
           <li>distinguishing single-loop learning (process improvements) from double-loop learning (questioning the assumption underneath)</li>
         </ul>
@@ -2233,26 +2233,26 @@ function Methodology({ onBack }) {
       <section style={{ marginBottom: 48 }}>
         <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Why gates</h2>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
-          Charity projects fail quietly. Funding gets accepted before anyone checks delivery is realistic. Delivery starts before the team is ready. Reports go in late because nobody owns them. Gates aren't bureaucracy â€” they're the moments to honestly answer one question and not move on until you can. Four gates. Three forced (1, 2, 4). One that only fires if something material shifts (Gate 3). If nothing material changes during delivery, you never see Gate 3, and that's exactly right.
+          Charity projects fail quietly. Funding gets accepted before anyone checks delivery is realistic. Delivery starts before the team is ready. Reports go in late because nobody owns them. Gates aren't bureaucracy — they're the moments to honestly answer one question and not move on until you can. Four gates. Three forced (1, 2, 4). One that only fires if something material shifts (Gate 3). If nothing material changes during delivery, you never see Gate 3, and that's exactly right.
         </p>
       </section>
 
       <section style={{ marginBottom: 48 }}>
         <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Why MEL is everywhere, not just at the end</h2>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginBottom: 12 }}>
-          Most charity tools treat monitoring and evaluation as something that happens after delivery â€” a panicked scramble to assemble evidence in time for the funder report. That's a structural mistake. By then the data isn't there to gather; it was there to design <em>for</em>, six months earlier.
+          Most charity tools treat monitoring and evaluation as something that happens after delivery — a panicked scramble to assemble evidence in time for the funder report. That's a structural mistake. By then the data isn't there to gather; it was there to design <em>for</em>, six months earlier.
         </p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginBottom: 12 }}>
           So this workbook puts MEL into every stage:
         </p>
         <ul style={{ fontSize: 15, lineHeight: 1.85, color: '#3D3933', paddingLeft: 24 }}>
-          <li>Stage 1 â€” outcome thinking and assumptions, not just activities</li>
-          <li>Stage 2 â€” indicators, baselines, and who collects what</li>
-          <li>Stage 3 â€” evidence and surprise, not just status</li>
-          <li>Stage 4 â€” single-loop and double-loop learning that actually feeds into the next bid</li>
+          <li>Stage 1 — outcome thinking and assumptions, not just activities</li>
+          <li>Stage 2 — indicators, baselines, and who collects what</li>
+          <li>Stage 3 — evidence and surprise, not just status</li>
+          <li>Stage 4 — single-loop and double-loop learning that actually feeds into the next bid</li>
         </ul>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginTop: 12, fontStyle: 'italic' }}>
-          A well-designed MEL framework only works if the wider organisational system around it works. The discipline of project management â€” gates, ownership, honest check-ins, learning loops â€” is what makes MEL practical for small teams. That's what this is.
+          A well-designed MEL framework only works if the wider organisational system around it works. The discipline of project management — gates, ownership, honest check-ins, learning loops — is what makes MEL practical for small teams. That's what this is.
         </p>
       </section>
 
