@@ -236,13 +236,6 @@ function buildProjectSheetHTML(p) {
 
 <!-- STAGE 1: DESIGN -->
 <h2>Stage 1 — Design</h2>
-<p class="subtitle">Step 1 — Purpose & Scope · Step 2 — The change & how we'll know</p>
-
-<h3>The problem statement</h3>
-<div class="field-value">${orDash(p.design?.problemStatement)}</div>
-
-<h3>Scope boundary — what this project is NOT doing</h3>
-<div class="field-value">${orDash(p.design?.scopeBoundary)}</div>
 
 <h3>SPICE — describing the project</h3>
 <table>
@@ -252,15 +245,13 @@ function buildProjectSheetHTML(p) {
   <tr><th>Population — how they join</th><td>${orDash(p.spice?.p_recruitment)}</td></tr>
   <tr><th>Intervention — what they experience</th><td>${orDash(p.spice?.i_what)}</td></tr>
   <tr><th>Intervention — delivery model</th><td>${orDash(p.spice?.i_model)}</td></tr>
+  <tr><th>Change — the problem</th><td>${orDash(p.design?.problemStatement)}</td></tr>
+  <tr><th>Change — scope boundary</th><td>${orDash(p.design?.scopeBoundary)}</td></tr>
+  <tr><th>Change — what should change</th><td>${orDash(p.design?.expectedChange)}</td></tr>
+  <tr><th>Change — most fragile assumption</th><td>${orDash(p.design?.fragileAssumption)}</td></tr>
+  <tr><th>Change — Theory of Change document</th><td>${p.design?.tocDocExists === 'yes' && p.design?.tocDocLink ? esc(p.design.tocDocLink) : p.design?.tocDocExists === 'yes' ? 'Yes (no link recorded)' : p.design?.tocDocExists === 'no' ? 'Not yet' : p.design?.tocDocExists === 'na' ? 'Not sure / not relevant' : '<span class="empty">—</span>'}</td></tr>
   <tr><th>Effect — longer-term difference</th><td>${orDash(p.spice?.e_effect)}</td></tr>
 </table>
-
-<h3>The change this project should make</h3>
-<div class="field-value">${orDash(p.design?.expectedChange)}</div>
-${p.design?.tocDocExists === 'yes' && p.design?.tocDocLink ? `<div class="meta">Theory of Change document: ${esc(p.design.tocDocLink)}</div>` : ''}
-
-<h3>Most fragile thing this project depends on</h3>
-<div class="field-value">${orDash(p.design?.fragileAssumption)}</div>
 
 <h3>What will tell us it's working (2—3 things)</h3>
 <div class="field-value">${orDash(p.design?.keyIndicators)}</div>
