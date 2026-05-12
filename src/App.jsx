@@ -175,7 +175,7 @@ function buildProjectSheetHTML(p) {
       ${c.impact ? `<em>Impact:</em> ${esc(c.impact)}` : ''}
     </div>`).join('');
 
-  // Stage 1 â†’ Stage 4 mirror pairs
+  // Stage 1 → Stage 4 mirror pairs
   const mirrorPair = (label, promise, reflection) => `
     <div class="mirror-pair">
       <div class="mirror-label">${label}</div>
@@ -236,7 +236,7 @@ function buildProjectSheetHTML(p) {
 
 <!-- STAGE 1: DESIGN -->
 <h2>Stage 1 — Design</h2>
-<p class="subtitle">Step 1 — Purpose & Scope Â· Step 2 — The change & how we'll know</p>
+<p class="subtitle">Step 1 — Purpose & Scope · Step 2 — The change & how we'll know</p>
 
 <h3>The problem statement</h3>
 <div class="field-value">${orDash(p.design?.problemStatement)}</div>
@@ -300,13 +300,13 @@ ${p.design?.tocDocExists === 'yes' && p.design?.tocDocLink ? `<div class="meta">
 
 <h3>Start-up checklist (Gate 2 essentials)</h3>
 <ul>
-  <li>${p.ops?.checklist?.leadsConfirmed ? 'â˜‘' : 'â˜'} Project Lead and Delivery Lead confirmed</li>
-  <li>${p.ops?.checklist?.timetableShared ? 'â˜‘' : 'â˜'} Delivery timetable confirmed and shared with team</li>
-  <li>${p.ops?.checklist?.recruitmentRouteAgreed ? 'â˜‘' : 'â˜'} Recruitment route agreed</li>
-  <li>${p.ops?.checklist?.riskAssessmentsDone ? 'â˜‘' : 'â˜'} Risk assessments confirmed</li>
-  <li>${p.ops?.checklist?.safeguardingBriefed ? 'â˜‘' : 'â˜'} Safeguarding & incident reporting briefed</li>
-  <li>${p.ops?.checklist?.budgetLoaded ? 'â˜‘' : 'â˜'} Budget loaded into tracking</li>
-  <li>${p.ops?.checklist?.spendApprovalSet ? 'â˜‘' : 'â˜'} Spend approval route confirmed</li>
+  <li>${p.ops?.checklist?.leadsConfirmed ? '☐' : '☐'} Project Lead and Delivery Lead confirmed</li>
+  <li>${p.ops?.checklist?.timetableShared ? '☐' : '☐'} Delivery timetable confirmed and shared with team</li>
+  <li>${p.ops?.checklist?.recruitmentRouteAgreed ? '☐' : '☐'} Recruitment route agreed</li>
+  <li>${p.ops?.checklist?.riskAssessmentsDone ? '☐' : '☐'} Risk assessments confirmed</li>
+  <li>${p.ops?.checklist?.safeguardingBriefed ? '☐' : '☐'} Safeguarding & incident reporting briefed</li>
+  <li>${p.ops?.checklist?.budgetLoaded ? '☐' : '☐'} Budget loaded into tracking</li>
+  <li>${p.ops?.checklist?.spendApprovalSet ? '☐' : '☐'} Spend approval route confirmed</li>
 </ul>
 ${p.ops?.notes ? `<div class="field-label">Other notes</div><div class="field-value">${esc(p.ops.notes)}</div>` : ''}
 
@@ -369,7 +369,7 @@ ${mirrorPair('Whose experience', p.design?.whoMightBeMissed, p.close?.missedRefl
 
 <div class="footer">
   Generated from the Project Workbook on ${new Date().toLocaleDateString('en-GB')}.<br/>
-  Shaped by Root 5 (Tearfund), SPICE, and Clarity-to-ImpactÂ® (Ann-Murray Brown). Methodology terms preserved as-is for funder reports.
+  Shaped by Root 5 (Tearfund), SPICE, and Clarity-to-Impact® (Ann-Murray Brown). Methodology terms preserved as-is for funder reports.
 </div>
 
 </body>
@@ -708,7 +708,7 @@ function Styles() {
 }
 
 function Loading() {
-  return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#5A5249', fontFamily: 'Fraunces, serif', fontStyle: 'italic' }}>opening the workbookâ€¦</div>;
+  return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#5A5249', fontFamily: 'Fraunces, serif', fontStyle: 'italic' }}>opening the workbook…</div>;
 }
 
 // ============================================
@@ -735,7 +735,7 @@ function Home({ projects, onOpen, onAdd, onDelete, onMethodology }) {
             </p>
           </div>
           <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-            About this approach â†’
+            About this approach →
           </button>
         </div>
       </header>
@@ -799,25 +799,25 @@ function ProjectRow({ project, onOpen, onDelete, delay = 0 }) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
           <h3 style={{ margin: 0, fontSize: 22, fontWeight: 400 }}>{project.name || <span style={{ color: '#A39685', fontStyle: 'italic' }}>Untitled project</span>}</h3>
-          {project.funder && <span style={{ fontSize: 13, color: '#8A7D6A' }}>Â· {project.funder}</span>}
+          {project.funder && <span style={{ fontSize: 13, color: '#8A7D6A' }}>· {project.funder}</span>}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 7, fontSize: 12, color: '#5A5249', flexWrap: 'wrap' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: meta.color }} />
             <strong style={{ fontWeight: 500, color: '#2C2A26' }}>{meta.label}</strong>
-            <span style={{ color: '#A39685', fontSize: 11 }}>Â· {meta.root}</span>
+            <span style={{ color: '#A39685', fontSize: 11 }}>· {meta.root}</span>
           </span>
           <span>{passedGates}/{totalGates} gates</span>
           {last && (
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: ragMeta[last.ragDelivery]?.color }} />
-              {ragMeta[last.ragDelivery]?.label} Â· {last.date}
+              {ragMeta[last.ragDelivery]?.label} · {last.date}
             </span>
           )}
         </div>
       </div>
       <button className="btn btn-ghost" onClick={(e) => { e.stopPropagation(); onDelete(); }} style={{ fontSize: 12, color: '#A39685' }}>Remove</button>
-      <div style={{ fontSize: 28, color: '#C9BCA5', fontFamily: 'Fraunces, serif', marginLeft: -8 }}>â†’</div>
+      <div style={{ fontSize: 28, color: '#C9BCA5', fontFamily: 'Fraunces, serif', marginLeft: -8 }}>→</div>
     </div>
   );
 }
@@ -864,10 +864,10 @@ function stageStatus(project, stageKey) {
 
 function CycleHub({ project, onSelectStage, currentStage }) {
   const stages = [
-    { key: 'design',         angle: -90, label: 'Design',         n: '01', root: 'Purpose',         color: '#7C5C3B', mel: 'Steps 1—2 Â· Purpose, ToC, indicators' },
-    { key: 'operationalise', angle: 0,   label: 'Operationalise', n: '02', root: 'People & Plan',  color: '#A8763E', mel: 'Steps 3—4 Â· Data systems, roles' },
-    { key: 'monitor',        angle: 90,  label: 'Monitor',        n: '03', root: 'Progress',       color: '#3E5A3A', mel: 'Step 5 Â· Analyse, report, communicate' },
-    { key: 'close',          angle: 180, label: 'Close & Learn',  n: '04', root: 'Performance',    color: '#5A4A3D', mel: 'Step 6 Â· Apply learning, adapt' },
+    { key: 'design',         angle: -90, label: 'Design',         n: '01', root: 'Purpose',         color: '#7C5C3B', mel: 'Steps 1—2 · Purpose, ToC, indicators' },
+    { key: 'operationalise', angle: 0,   label: 'Operationalise', n: '02', root: 'People & Plan',  color: '#A8763E', mel: 'Steps 3—4 · Data systems, roles' },
+    { key: 'monitor',        angle: 90,  label: 'Monitor',        n: '03', root: 'Progress',       color: '#3E5A3A', mel: 'Step 5 · Analyse, report, communicate' },
+    { key: 'close',          angle: 180, label: 'Close & Learn',  n: '04', root: 'Performance',    color: '#5A4A3D', mel: 'Step 6 · Apply learning, adapt' },
   ];
 
   const cx = 270, cy = 270, r = 175;
@@ -1007,7 +1007,7 @@ function CycleHub({ project, onSelectStage, currentStage }) {
                   fill: isPassed ? '#F5EFE3' : s.color,
                   fontWeight: 400,
                 }}
-              >{isPassed ? 'âœ"' : (isInProgress ? 'â—' : 'â—‹')}</text>
+              >{isPassed ? '✓' : (isInProgress ? 'â—' : '○')}</text>
 
               {/* External label */}
               <text
@@ -1051,9 +1051,9 @@ function CycleHub({ project, onSelectStage, currentStage }) {
 
 function CycleKey() {
   const items = [
-    { mark: 'â—‹', label: 'open' },
+    { mark: '○', label: 'open' },
     { mark: 'â—', label: 'in progress' },
-    { mark: 'âœ"', label: 'gate passed' },
+    { mark: '✓', label: 'gate passed' },
   ];
   return (
     <div style={{ display: 'flex', justifyContent: 'center', gap: 24, marginTop: 8, flexWrap: 'wrap' }}>
@@ -1136,7 +1136,7 @@ function ProjectView({ project, update, onBack, onDelete, onMethodology }) {
           type="text"
           value={project.name}
           onChange={(e) => update(p => ({ ...p, name: e.target.value }))}
-          placeholder="Name this projectâ€¦"
+          placeholder="Name this project…"
           className="display"
           style={{
             width: '100%',
@@ -1196,7 +1196,7 @@ function DesignStage({ project, update, onAdvance }) {
 
       {/* Stage 0 anchor */}
       <div className="card">
-        <SectionLabel>Stage 0 Â· the anchor</SectionLabel>
+        <SectionLabel>Stage 0 · the anchor</SectionLabel>
         <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>Strategic alignment</h3>
         <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', lineHeight: 1.55, marginBottom: 18 }}>
           Before any design work, name how this project sits within the wider organisational strategy. If you can't say which priorities it serves, that's the first question worth answering — for the project, and possibly for the strategy.
@@ -1206,7 +1206,7 @@ function DesignStage({ project, update, onAdvance }) {
           <textarea
             value={project.anchor.strategicAlignment}
             onChange={(e) => setAnchor({ strategicAlignment: e.target.value })}
-            placeholder="e.g. Strand 2 — nature-connected youth provision Â· Strand 4 — building practitioner network in the East"
+            placeholder="e.g. Strand 2 — nature-connected youth provision · Strand 4 — building practitioner network in the East"
           />
         </div>
       </div>
@@ -1385,7 +1385,7 @@ function DesignStage({ project, update, onAdvance }) {
         <div className="grid-2">
           <div className="field">
             <label>Total funding</label>
-            <input type="text" value={project.spice.fundingAmount} onChange={(e) => setSpice({ fundingAmount: e.target.value })} placeholder="e.g. Â£24,000" />
+            <input type="text" value={project.spice.fundingAmount} onChange={(e) => setSpice({ fundingAmount: e.target.value })} placeholder="e.g. £24,000" />
           </div>
           <div className="field">
             <label>Restricted, unrestricted, or mixed?</label>
@@ -1399,7 +1399,7 @@ function DesignStage({ project, update, onAdvance }) {
         </div>
         <div className="field">
           <label>Reporting deadlines</label>
-          <input type="text" value={project.spice.reportingDates} onChange={(e) => setSpice({ reportingDates: e.target.value })} placeholder="e.g. Interim 28 Feb Â· Final 15 May" />
+          <input type="text" value={project.spice.reportingDates} onChange={(e) => setSpice({ reportingDates: e.target.value })} placeholder="e.g. Interim 28 Feb · Final 15 May" />
         </div>
         <div className="field">
           <label>Fixed dates we cannot move</label>
@@ -1422,7 +1422,7 @@ function DesignStage({ project, update, onAdvance }) {
         ready={ready}
         gate={gate}
         readyMsg="Problem named, change described, indicators chosen. Sign off and move to Operationalise."
-        notReadyMsg="Need: problem Â· S, P, I from SPICE Â· what change Â· what will tell us it&rsquo;s working Â· funding amount Â· reporting dates."
+        notReadyMsg="Need: problem · S, P, I from SPICE · what change · what will tell us it&rsquo;s working · funding amount · reporting dates."
         onPass={() => update(p => ({ ...p, gates: { ...p.gates, 1: { passed: true, date: todayISO(), note: gate.note || 'Approved' } }, stage: p.stage === 'design' ? 'operationalise' : p.stage }))}
         onUpdateNote={(note) => update(p => ({ ...p, gates: { ...p.gates, 1: { ...p.gates[1], note } } }))}
         onAdvance={onAdvance}
@@ -1495,7 +1495,7 @@ function QuestionsForLead({ questions }) {
         onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1800); }}
         style={{ fontSize: 12 }}
       >
-        {copied ? 'Copied âœ"' : 'Copy as message'}
+        {copied ? 'Copied ✓' : 'Copy as message'}
       </button>
     </div>
   );
@@ -1664,7 +1664,7 @@ function MonitorStage({ project, update, onAdvance }) {
           <h3 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 500 }}>Delivery wrapping up?</h3>
           <p style={{ margin: 0, fontSize: 13, color: '#5A5249' }}>Move to Close & Learn when sessions are done.</p>
         </div>
-        <button className="btn btn-primary" onClick={() => { update(p => ({ ...p, stage: 'close' })); onAdvance(); }}>Move to Close & Learn â†’</button>
+        <button className="btn btn-primary" onClick={() => { update(p => ({ ...p, stage: 'close' })); onAdvance(); }}>Move to Close & Learn →</button>
       </div>
     </div>
   );
@@ -1777,7 +1777,7 @@ function ChangeForm({ onSave, onCancel }) {
 
   return (
     <div className="card fade-up" style={{ borderColor: '#A8763E', background: '#FAF1DD' }}>
-      <SectionLabel style={{ color: '#7A5A1E' }}>Material change Â· Gate 3</SectionLabel>
+      <SectionLabel style={{ color: '#7A5A1E' }}>Material change · Gate 3</SectionLabel>
       <h3 style={{ margin: '4px 0 12px', fontSize: 22, fontWeight: 400 }}>Something has shifted</h3>
       <p style={{ marginTop: 0, fontSize: 14, color: '#7A5A1E', marginBottom: 18 }}>
         Used only for changes affecting time, cost, scope, safeguarding, or reporting. The point is to make drift visible, not punishable.
@@ -1802,7 +1802,7 @@ function ChangeCard({ change }) {
     <div className="card" style={{ padding: 20, background: '#FAF1DD', borderColor: '#E8D2A6' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10, flexWrap: 'wrap' }}>
         <strong style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 400 }}>{change.date}</strong>
-        {change.approvedBy && <span style={{ fontSize: 12, color: '#7A5A1E' }}>Â· approved by {change.approvedBy}</span>}
+        {change.approvedBy && <span style={{ fontSize: 12, color: '#7A5A1E' }}>· approved by {change.approvedBy}</span>}
       </div>
       <div style={{ fontSize: 14, lineHeight: 1.6, display: 'grid', gap: 7 }}>
         <Detail label="Changed" tone="rust">{change.what}</Detail>
@@ -1927,8 +1927,8 @@ function CloseStage({ project, update }) {
         <SectionLabel>Money</SectionLabel>
         <h3 style={{ margin: '0 0 18px', fontSize: 22, fontWeight: 400 }}>Budget headline</h3>
         <div className="grid-2">
-          <div className="field"><label>Budget total</label><input type="text" value={project.close.budgetTotal} onChange={(e) => setClose({ budgetTotal: e.target.value })} placeholder="Â£" /></div>
-          <div className="field"><label>Actual spend</label><input type="text" value={project.close.budgetActual} onChange={(e) => setClose({ budgetActual: e.target.value })} placeholder="Â£" /></div>
+          <div className="field"><label>Budget total</label><input type="text" value={project.close.budgetTotal} onChange={(e) => setClose({ budgetTotal: e.target.value })} placeholder="£" /></div>
+          <div className="field"><label>Actual spend</label><input type="text" value={project.close.budgetActual} onChange={(e) => setClose({ budgetActual: e.target.value })} placeholder="£" /></div>
         </div>
         <div className="field" style={{ marginBottom: 0 }}><label>Variance &mdash; one or two lines</label><textarea value={project.close.budgetVariance} onChange={(e) => setClose({ budgetVariance: e.target.value })} placeholder="e.g. Underspend of \u00a31,200 \u2014 lower transport costs as fewer cohort-2 sessions ran." /></div>
       </div>
@@ -2099,20 +2099,20 @@ function GatePanel({ n, title, intent, ready, gate, priorGatePassed, priorGateNa
     <div className="card" style={{ background: bg, borderColor: border, borderWidth: 1 }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
         <span className="hand" style={{ fontSize: 32, color: passed ? '#3E5A3A' : (blocked ? '#A8763E' : '#A8763E'), lineHeight: 1 }}>
-          {passed ? 'âœ"' : (blocked ? '!' : (ready ? 'â—‹' : 'â—Œ'))}
+          {passed ? '✓' : (blocked ? '!' : (ready ? '○' : '◌'))}
         </span>
         <div style={{ flex: 1, minWidth: 200 }}>
           <h3 style={{ margin: 0, fontSize: 22, fontWeight: 400 }}>{title}</h3>
           <p style={{ margin: '4px 0 0', fontSize: 14, color: '#5A5249' }}>{intent}</p>
         </div>
-        {passed && <span className="pill" style={{ background: '#3E5A3A', color: '#F5EFE3' }}>Passed Â· {gate.date}</span>}
+        {passed && <span className="pill" style={{ background: '#3E5A3A', color: '#F5EFE3' }}>Passed · {gate.date}</span>}
       </div>
 
       <div style={{ marginTop: 16 }}>
         {passed ? (
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
             <input type="text" value={gate.note} onChange={(e) => onUpdateNote(e.target.value)} placeholder="Sign-off note" style={{ flex: 1, minWidth: 220, background: '#FFFCF4' }} />
-            {onAdvance && !finalGate && <button className="btn btn-secondary" onClick={onAdvance}>Continue â†’</button>}
+            {onAdvance && !finalGate && <button className="btn btn-secondary" onClick={onAdvance}>Continue →</button>}
           </div>
         ) : blocked && !confirmOverride ? (
           <div>
@@ -2207,10 +2207,10 @@ function Methodology({ onBack }) {
 
       <section style={{ marginBottom: 48 }}>
         <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>
-          Clarity-to-ImpactÂ® <span style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'normal' }}>— Ann-Murray Brown</span>
+          Clarity-to-Impact® <span style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'normal' }}>— Ann-Murray Brown</span>
         </h2>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginBottom: 12 }}>
-          Clarity-to-ImpactÂ® is a registered MEL methodology developed by Ann-Murray Brown, used by practitioners across UN agencies, INGOs and foundations. It moves teams from <em>activity tracking</em> ("we ran 12 sessions") to <em>showing evidence of change</em> ("here's what shifted, for whom, and how we know").
+          Clarity-to-Impact® is a registered MEL methodology developed by Ann-Murray Brown, used by practitioners across UN agencies, INGOs and foundations. It moves teams from <em>activity tracking</em> ("we ran 12 sessions") to <em>showing evidence of change</em> ("here's what shifted, for whom, and how we know").
         </p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginBottom: 12 }}>
           I trained in this programme and the tool you're using here reflects what I took from it — particularly:
@@ -2223,10 +2223,10 @@ function Methodology({ onBack }) {
           <li>distinguishing single-loop learning (process improvements) from double-loop learning (questioning the assumption underneath)</li>
         </ul>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginTop: 12 }}>
-          This workbook is not Clarity-to-ImpactÂ®. It's a project management shell shaped <em>by</em> that training, designed for teams that don't yet have a dedicated MEL system but want their work to lead somewhere they can describe honestly.
+          This workbook is not Clarity-to-Impact®. It's a project management shell shaped <em>by</em> that training, designed for teams that don't yet have a dedicated MEL system but want their work to lead somewhere they can describe honestly.
         </p>
         <p style={{ fontSize: 13, color: '#8A7D6A', lineHeight: 1.6, marginTop: 18 }}>
-          Clarity-to-ImpactÂ® is a registered trademark of Ann-Murray Brown. More about the programme at <a href="https://www.annmurraybrown.com/claritytoimpact" target="_blank" rel="noreferrer" style={{ color: '#3E5A3A' }}>annmurraybrown.com/claritytoimpact</a>.
+          Clarity-to-Impact® is a registered trademark of Ann-Murray Brown. More about the programme at <a href="https://www.annmurraybrown.com/claritytoimpact" target="_blank" rel="noreferrer" style={{ color: '#3E5A3A' }}>annmurraybrown.com/claritytoimpact</a>.
         </p>
       </section>
 
