@@ -1122,9 +1122,9 @@ function ProjectView({ project, update, onBack, onDelete, onMethodology }) {
     <div style={{ maxWidth: 1080, margin: '0 auto', padding: '32px 32px 80px' }}>
       {/* Top nav */}
       <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32, flexWrap: 'wrap', gap: 12 }}>
-        <button className="btn btn-ghost" onClick={onBack} style={{ marginLeft: -12 }}>â† All projects</button>
+        <button className="btn btn-ghost" onClick={onBack} style={{ marginLeft: -12 }}>← All projects</button>
         <div style={{ display: 'flex', gap: 4 }}>
-          <button className="btn btn-ghost" onClick={() => exportProjectAsDoc(project)} style={{ fontSize: 12 }}>â†" Export Project Sheet</button>
+          <button className="btn btn-ghost" onClick={() => exportProjectAsDoc(project)} style={{ fontSize: 12 }}>↓ Export Project Sheet</button>
           <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12 }}>About this approach</button>
           <button className="btn btn-ghost" onClick={onDelete} style={{ fontSize: 12, color: '#9C3D2C' }}>Delete</button>
         </div>
@@ -2166,7 +2166,7 @@ function LockedStage({ stage, requires }) {
 function Methodology({ onBack }) {
   return (
     <div style={{ maxWidth: 760, margin: '0 auto', padding: '56px 32px 80px' }}>
-      <button className="btn btn-ghost" onClick={onBack} style={{ marginLeft: -12, marginBottom: 24 }}>â† Back</button>
+      <button className="btn btn-ghost" onClick={onBack} style={{ marginLeft: -12, marginBottom: 24 }}>← Back</button>
 
       <div style={{ marginBottom: 8 }}>
         <SectionLabel>The thinking behind it</SectionLabel>
