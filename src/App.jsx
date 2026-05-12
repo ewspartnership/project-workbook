@@ -402,14 +402,6 @@ const SPICE_SECTIONS = [
       { key: 'i_model', label: 'Delivery model', placeholder: 'Frequency, duration, ratios, key partners' },
     ],
   },
-  // C (Change) is now covered properly by the Theory of Change & Indicators section
-  // — kept out of SPICE here so we don't ask the same question twice
-  {
-    letter: 'E', name: 'Effect', tagline: 'So what — long-term',
-    fields: [
-      { key: 'e_effect', label: "What's the longer-term difference?", placeholder: 'Why it matters beyond the project — the impact-level change' },
-    ],
-  },
 ];
 
 // ---- Questions for the Project Lead (auto-generated from gaps) ----
@@ -1213,35 +1205,7 @@ function DesignStage({ project, update, onAdvance }) {
         </div>
       </div>
 
-      <StepDivider n="01" title="Purpose & Scope" subtitle="What problem are we actually responding to, and what is this project doing about it?" />
-
-      {/* Problem statement — opens Step 1 */}
-      <div className="card">
-        <SectionLabel>Problem framing</SectionLabel>
-        <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>The problem statement</h3>
-        <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', lineHeight: 1.55, marginBottom: 18 }}>
-          Get the problem framing right and the rest of the design follows. Get it wrong and the whole project drifts toward fixing the wrong thing. Be specific about who experiences it, where, and why current responses fall short.
-        </p>
-        <div className="field" style={{ marginBottom: 14 }}>
-          <label>What problem is this project responding to?</label>
-          <textarea
-            value={project.design.problemStatement}
-            onChange={(e) => setDesign({ problemStatement: e.target.value })}
-            placeholder="e.g. Some young people's SEND and regulation needs aren't well met by mainstream classrooms, leading to distress, disrupted learning and exclusion risk. Existing alternatives are limited, costly, or stigmatising."
-            style={{ minHeight: 110 }}
-          />
-        </div>
-        <div className="field" style={{ marginBottom: 0 }}>
-          <label>What is this project explicitly NOT doing? (scope boundary)</label>
-          <textarea
-            value={project.design.scopeBoundary}
-            onChange={(e) => setDesign({ scopeBoundary: e.target.value })}
-            placeholder="What we might get asked to add but won't — keeps us honest"
-          />
-        </div>
-      </div>
-
-      {/* SPICE — the project description spine (S, P, I, E) */}
+      {/* SPICE — S, P, I from array */}
       {SPICE_SECTIONS.map((section) => (
         <div className="card" key={section.letter}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 6 }}>
@@ -1266,86 +1230,122 @@ function DesignStage({ project, update, onAdvance }) {
         </div>
       ))}
 
-      <StepDivider n="02" title="The change & how we&rsquo;ll know" subtitle="What change should this project make, what are we assuming, and what will tell us it&rsquo;s working?" />
-
-      {/* The change — plain-English Theory of Change */}
+      {/* C — Change: problem, scope, expected change, fragile assumption, ToC */}
       <div className="card">
-        <SectionLabel>The change</SectionLabel>
-        <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>What should this project change?</h3>
-        <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', lineHeight: 1.55, marginBottom: 18 }}>
-          The project exists to change something for someone. Be specific about who, and what's different by the end. Plain English is fine — short sentences, no jargon.
-        </p>
-
-        <div className="field" style={{ marginBottom: 16 }}>
-          <label>Is there a Theory of Change document for this project?</label>
-          <div style={{ display: 'flex', gap: 8, marginTop: 4, flexWrap: 'wrap' }}>
-            {[{v: 'yes', l: 'Yes'}, {v: 'no', l: 'Not yet'}, {v: 'na', l: 'Not sure / not relevant'}].map(opt => (
-              <button
-                key={opt.v}
-                type="button"
-                onClick={() => setDesign({ tocDocExists: opt.v })}
-                style={{
-                  padding: '8px 16px',
-                  borderRadius: 2,
-                  border: `1px solid ${project.design.tocDocExists === opt.v ? '#3E5A3A' : '#C9BCA5'}`,
-                  background: project.design.tocDocExists === opt.v ? '#3E5A3A' : 'transparent',
-                  color: project.design.tocDocExists === opt.v ? '#F5EFE3' : '#5A5249',
-                  fontSize: 13,
-                  cursor: 'pointer',
-                  fontFamily: 'Inter, sans-serif',
-                  transition: 'all 0.15s',
-                }}
-              >{opt.l}</button>
-            ))}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 6 }}>
+          <span style={{ fontFamily: 'Fraunces, serif', fontSize: 56, fontWeight: 300, color: '#A8763E', lineHeight: 1, fontStyle: 'italic' }}>C</span>
+          <div>
+            <h3 style={{ margin: 0, fontSize: 22, fontWeight: 400 }}>Change</h3>
+            <span className="hand" style={{ fontSize: 16, color: '#8A7D6A' }}>The problem, the shift, the assumptions</span>
           </div>
         </div>
-
-        {project.design.tocDocExists === 'yes' && (
-          <div className="field" style={{ marginBottom: 16 }}>
-            <label>Where does it live? (link or location)</label>
-            <input
-              type="text"
-              value={project.design.tocDocLink}
-              onChange={(e) => setDesign({ tocDocLink: e.target.value })}
-              placeholder="e.g. SharePoint / Strategy folder / Bid document section 3"
+        <div style={{ marginTop: 20, display: 'grid', gap: 18 }}>
+          <div className="field" style={{ marginBottom: 0 }}>
+            <label>What problem is this project responding to?</label>
+            <textarea
+              value={project.design.problemStatement}
+              onChange={(e) => setDesign({ problemStatement: e.target.value })}
+              placeholder="e.g. Some young people's SEND and regulation needs aren't well met by mainstream classrooms, leading to distress, disrupted learning and exclusion risk. Existing alternatives are limited, costly, or stigmatising."
+              style={{ minHeight: 110 }}
             />
           </div>
-        )}
-
-        <div className="field" style={{ marginBottom: 16 }}>
-          <label>What change should this project make, and for whom?</label>
-          <textarea
-            value={project.design.expectedChange}
-            onChange={(e) => setDesign({ expectedChange: e.target.value })}
-            placeholder="e.g. Young people at risk of school exclusion become more able to manage their feelings, feel more part of a group, and have a clearer sense of what they could do next. By the end, more of them are still engaged with education or training six months later."
-            style={{ minHeight: 110 }}
-          />
-          <WhyExpander label="Why this matters">
-            This is the project's outcomes pathway in plain English. A Theory of Change describes how activities lead to outputs (what's produced), outcomes (what shifts for people), and impact (longer-term difference). Capturing it here without the jargon means anyone can read it and picture what the project is for.
-          </WhyExpander>
+          <div className="field" style={{ marginBottom: 0 }}>
+            <label>What is this project explicitly NOT doing? (scope boundary)</label>
+            <textarea
+              value={project.design.scopeBoundary}
+              onChange={(e) => setDesign({ scopeBoundary: e.target.value })}
+              placeholder="What we might get asked to add but won't — keeps us honest"
+            />
+          </div>
+          <div className="field" style={{ marginBottom: 0 }}>
+            <label>What change should this project make, and for whom?</label>
+            <textarea
+              value={project.design.expectedChange}
+              onChange={(e) => setDesign({ expectedChange: e.target.value })}
+              placeholder="e.g. Young people at risk of school exclusion become more able to manage their feelings, feel more part of a group, and have a clearer sense of what they could do next. By the end, more of them are still engaged with education or training six months later."
+              style={{ minHeight: 110 }}
+            />
+            <WhyExpander label="Why this matters">
+              This is the project's outcomes pathway in plain English. A Theory of Change describes how activities lead to outputs (what's produced), outcomes (what shifts for people), and impact (longer-term difference). Capturing it here without the jargon means anyone can read it and picture what the project is for.
+            </WhyExpander>
+          </div>
+          <div className="field" style={{ marginBottom: 0 }}>
+            <label>What's the most fragile thing this project depends on?</label>
+            <p style={{ fontSize: 12, color: '#8A7D6A', margin: '0 0 8px', lineHeight: 1.5 }}>
+              Something that, if it doesn't hold, would derail the project. And how would we spot early that it's breaking?
+            </p>
+            <textarea
+              value={project.design.fragileAssumption}
+              onChange={(e) => setDesign({ fragileAssumption: e.target.value })}
+              placeholder="e.g. We're relying on one teacher at one school to refer most participants. Watch signal: if referrals slow in week 2, escalate."
+              style={{ minHeight: 90 }}
+            />
+            <WhyExpander label="Why this matters">
+              Most projects rest on assumptions that nobody names. Naming the most fragile one — and saying what would tell us it's breaking — is the assumption-audit move from MEL practice. It turns a hidden risk into something the team can actually watch for.
+            </WhyExpander>
+          </div>
+          <div className="field" style={{ marginBottom: 0 }}>
+            <label>Is there a Theory of Change document for this project?</label>
+            <div style={{ display: 'flex', gap: 8, marginTop: 4, flexWrap: 'wrap' }}>
+              {[{v: 'yes', l: 'Yes'}, {v: 'no', l: 'Not yet'}, {v: 'na', l: 'Not sure / not relevant'}].map(opt => (
+                <button
+                  key={opt.v}
+                  type="button"
+                  onClick={() => setDesign({ tocDocExists: opt.v })}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: 2,
+                    border: `1px solid ${project.design.tocDocExists === opt.v ? '#3E5A3A' : '#C9BCA5'}`,
+                    background: project.design.tocDocExists === opt.v ? '#3E5A3A' : 'transparent',
+                    color: project.design.tocDocExists === opt.v ? '#F5EFE3' : '#5A5249',
+                    fontSize: 13,
+                    cursor: 'pointer',
+                    fontFamily: 'Inter, sans-serif',
+                    transition: 'all 0.15s',
+                  }}
+                >{opt.l}</button>
+              ))}
+            </div>
+          </div>
+          {project.design.tocDocExists === 'yes' && (
+            <div className="field" style={{ marginBottom: 0 }}>
+              <label>Where does it live? (link or location)</label>
+              <input
+                type="text"
+                value={project.design.tocDocLink}
+                onChange={(e) => setDesign({ tocDocLink: e.target.value })}
+                placeholder="e.g. SharePoint / Strategy folder / Bid document section 3"
+              />
+            </div>
+          )}
         </div>
+      </div>
 
-        <div className="field" style={{ marginBottom: 0 }}>
-          <label>What's the most fragile thing this project depends on?</label>
-          <p style={{ fontSize: 12, color: '#8A7D6A', margin: '0 0 8px', lineHeight: 1.5 }}>
-            Something that, if it doesn't hold, would derail the project. And how would we spot early that it's breaking?
-          </p>
-          <textarea
-            value={project.design.fragileAssumption}
-            onChange={(e) => setDesign({ fragileAssumption: e.target.value })}
-            placeholder="e.g. We&rsquo;re relying on one teacher at one school to refer most participants. Watch signal: if referrals slow in week 2, escalate."
-            style={{ minHeight: 90 }}
-          />
-          <WhyExpander label="Why this matters">
-            Most projects rest on assumptions that nobody names. Naming the most fragile one — and saying what would tell us it's breaking — is the assumption-audit move from MEL practice. It turns a hidden risk into something the team can actually watch for.
-          </WhyExpander>
+      {/* E — Effect */}
+      <div className="card">
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 6 }}>
+          <span style={{ fontFamily: 'Fraunces, serif', fontSize: 56, fontWeight: 300, color: '#A8763E', lineHeight: 1, fontStyle: 'italic' }}>E</span>
+          <div>
+            <h3 style={{ margin: 0, fontSize: 22, fontWeight: 400 }}>Effect</h3>
+            <span className="hand" style={{ fontSize: 16, color: '#8A7D6A' }}>So what — long-term</span>
+          </div>
+        </div>
+        <div style={{ marginTop: 20 }}>
+          <div className="field" style={{ marginBottom: 0 }}>
+            <label>What's the longer-term difference?</label>
+            <textarea
+              value={project.spice.e_effect || ''}
+              onChange={(e) => setSpice({ e_effect: e.target.value })}
+              placeholder="Why it matters beyond the project — the impact-level change"
+            />
+          </div>
         </div>
       </div>
 
       {/* What will tell us it's working — plain-English indicators */}
       <div className="card">
-        <SectionLabel>How we&rsquo;ll know</SectionLabel>
-        <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>What will tell us it&rsquo;s working?</h3>
+        <SectionLabel>How we'll know</SectionLabel>
+        <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>What will tell us it's working?</h3>
         <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', lineHeight: 1.55, marginBottom: 18 }}>
           Pick a small number of things that genuinely matter. A mix of easy-to-count and harder-to-see is best. Two or three is plenty — resist the urge to measure everything.
         </p>
