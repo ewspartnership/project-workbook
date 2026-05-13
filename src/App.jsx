@@ -781,7 +781,10 @@ function Home({ projects, onOpen, onAdd, onDelete, onMethodology }) {
 
       {/* Footer note */}
       <div style={{ marginTop: 80, paddingTop: 32, borderTop: '1px solid #C9BCA5', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, fontSize: 12, color: '#8A7D6A', letterSpacing: '0.05em' }}>
-        <span>Designed by <a href="https://www.linkedin.com/in/stephanie-sanderson-uk/" target="_blank" rel="noreferrer" style={{color:'#5A5249'}}>Stephanie Sanderson</a></span>
+        <div>
+          <span>Designed by <a href="https://www.linkedin.com/in/stephanie-sanderson-uk/" target="_blank" rel="noreferrer" style={{color:'#5A5249'}}>Stephanie Sanderson</a></span>
+          <div style={{fontSize: 12, color: '#8A7D6A', fontStyle: 'italic', marginTop: 6}}>This is an evolving prototype. Feedback and reflections very welcome — <a href="mailto:s.sanderson@ewspartnership.org" style={{color: '#8A7D6A'}}>s.sanderson@ewspartnership.org</a></div>
+        </div>
       </div>
     </div>
   );
