@@ -892,10 +892,10 @@ function stageStatus(project, stageKey) {
 
 function CycleHub({ project, onSelectStage, currentStage, interactive = true }) {
   const stages = [
-    { key: 'design',         angle: -90, label: 'Design',         n: '01', root: 'Purpose',         color: '#7C5C3B', mel: 'Steps 1—2 · Purpose, ToC, indicators' },
-    { key: 'operationalise', angle: 0,   label: 'Operationalise', n: '02', root: 'People & Plan',  color: '#A8763E', mel: 'Steps 3—4 · Data systems, roles' },
-    { key: 'monitor',        angle: 90,  label: 'Monitor',        n: '03', root: 'Progress',       color: '#3E5A3A', mel: 'Step 5 · Analyse, report, communicate' },
-    { key: 'close',          angle: 180, label: 'Close & Learn',  n: '04', root: 'Performance',    color: '#5A4A3D', mel: 'Step 6 · Apply learning, adapt' },
+    { key: 'design',         angle: -90, label: 'Design',         n: '01', root: 'Purpose',        color: '#7C5C3B' },
+    { key: 'operationalise', angle: 0,   label: 'Operationalise', n: '02', root: 'People & Plan', color: '#A8763E' },
+    { key: 'monitor',        angle: 90,  label: 'Monitor',        n: '03', root: 'Progress',      color: '#3E5A3A' },
+    { key: 'close',          angle: 180, label: 'Close & Learn',  n: '04', root: 'Performance',   color: '#5A4A3D' },
   ];
 
   const cx = 270, cy = 270, r = 175;
@@ -912,7 +912,7 @@ function CycleHub({ project, onSelectStage, currentStage, interactive = true }) 
           </marker>
           {/* Big chunky arrowhead — pending (warm grey/brown) */}
           <marker id="arrowPending" viewBox="0 0 14 14" refX="6" refY="7" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
-            <path d="M 1 1 L 12 7 L 1 13 z" fill="#A8763E" opacity="0.7" />
+            <path d="M 1 1 L 12 7 L 1 13 z" fill="#A8763E" />
           </marker>
         </defs>
 
@@ -972,7 +972,7 @@ function CycleHub({ project, onSelectStage, currentStage, interactive = true }) 
           const isInProgress = status === 'inProgress';
 
           // Label position
-          const labelDist = 86;
+          const labelDist = 110;
           const lx = cx + (r + labelDist) * Math.cos(a);
           const ly = cy + (r + labelDist) * Math.sin(a);
 
@@ -1059,16 +1059,6 @@ function CycleHub({ project, onSelectStage, currentStage, interactive = true }) 
                   fill: '#8A7D6A',
                 }}
               >{s.root}</text>
-              <text
-                x={lx} y={ly + 22}
-                textAnchor="middle"
-                style={{
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '10px',
-                  fill: '#A8763E',
-                  letterSpacing: '0.04em',
-                }}
-              >{s.mel}</text>
             </g>
           );
         })}
