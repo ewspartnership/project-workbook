@@ -492,7 +492,7 @@ const ragMeta = {
 export default function App() {
   const [projects, setProjects] = useState([]);
   const [activeId, setActiveId] = useState(null);
-  const [view, setView] = useState('home'); // home | project | methodology
+  const [view, setView] = useState('home'); // home | project | methodology | guide
   const [loading, setLoading] = useState(true);
 
   useEffect(() => { loadAll().then(p => { setProjects(p); setLoading(false); }); }, []);
@@ -521,10 +521,12 @@ export default function App() {
           <Loading />
         ) : view === 'methodology' ? (
           <Methodology onBack={() => setView('home')} />
+        ) : view === 'guide' ? (
+          <Guide onBack={() => setView('project')} />
         ) : view === 'home' || !active ? (
           <Home projects={projects} onOpen={(id) => { setActiveId(id); setView('project'); }} onAdd={add} onDelete={remove} onMethodology={() => setView('methodology')} />
         ) : (
-          <ProjectView project={active} update={(fn) => update(active.id, fn)} onBack={() => setView('home')} onDelete={() => remove(active.id)} onMethodology={() => setView('methodology')} />
+          <ProjectView project={active} update={(fn) => update(active.id, fn)} onBack={() => setView('home')} onDelete={() => remove(active.id)} onMethodology={() => setView('methodology')} onGuide={() => setView('guide')} />
         )}
       </div>
     </>
@@ -1139,7 +1141,7 @@ function BotanicalMark() {
 // ============================================
 // PROJECT VIEW
 // ============================================
-function ProjectView({ project, update, onBack, onDelete, onMethodology }) {
+function ProjectView({ project, update, onBack, onDelete, onMethodology, onGuide }) {
   const [stage, setStage] = useState(project.stage === 'done' ? 'close' : project.stage);
 
   return (
@@ -1150,6 +1152,7 @@ function ProjectView({ project, update, onBack, onDelete, onMethodology }) {
         <div style={{ display: 'flex', gap: 4 }}>
           <button className="btn btn-ghost" onClick={() => exportProjectAsDoc(project)} style={{ fontSize: 12 }}>↓ Export Project Sheet</button>
           <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12 }}>About this approach</button>
+          <button className="btn btn-ghost" onClick={onGuide} style={{ fontSize: 12 }}>A practical guide</button>
           <button className="btn btn-ghost" onClick={onDelete} style={{ fontSize: 12, color: '#9C3D2C' }}>Delete</button>
         </div>
       </div>
