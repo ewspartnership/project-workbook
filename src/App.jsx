@@ -892,10 +892,10 @@ function stageStatus(project, stageKey) {
 
 function CycleHub({ project, onSelectStage, currentStage, interactive = true }) {
   const stages = [
-    { key: 'design',         angle: -90, label: 'Design',         n: '01', root: 'Purpose',        color: '#7C5C3B' },
-    { key: 'operationalise', angle: 0,   label: 'Operationalise', n: '02', root: 'People & Plan', color: '#A8763E' },
-    { key: 'monitor',        angle: 90,  label: 'Monitor',        n: '03', root: 'Progress',      color: '#3E5A3A' },
-    { key: 'close',          angle: 180, label: 'Close & Learn',  n: '04', root: 'Performance',   color: '#5A4A3D' },
+    { key: 'design',         angle: -90, label: 'Design',         n: '01', root: 'Purpose',        color: '#7C5C3B', mel: 'Stage 1 · Purpose, ToC, indicators' },
+    { key: 'operationalise', angle: 0,   label: 'Operationalise', n: '02', root: 'People & Plan', color: '#A8763E', mel: 'Stage 2 · Data systems, roles' },
+    { key: 'monitor',        angle: 90,  label: 'Monitor',        n: '03', root: 'Progress',      color: '#3E5A3A', mel: 'Stage 3 · Analyse, report, communicate' },
+    { key: 'close',          angle: 180, label: 'Close & Learn',  n: '04', root: 'Performance',   color: '#5A4A3D', mel: 'Stage 4 · Apply learning, adapt' },
   ];
 
   const cx = 270, cy = 270, r = 175;
@@ -971,8 +971,10 @@ function CycleHub({ project, onSelectStage, currentStage, interactive = true }) 
           const isPassed = status === 'passed';
           const isInProgress = status === 'inProgress';
 
-          // Label position
-          const labelDist = 110;
+          // Label position — extra distance only for horizontal labels (left/right),
+          // so side labels don't crowd their circles; top/bottom stay at original distance
+          const isHorizontal = s.angle === 0 || s.angle === 180;
+          const labelDist = isHorizontal ? 110 : 86;
           const lx = cx + (r + labelDist) * Math.cos(a);
           const ly = cy + (r + labelDist) * Math.sin(a);
 
@@ -1059,6 +1061,16 @@ function CycleHub({ project, onSelectStage, currentStage, interactive = true }) 
                   fill: '#8A7D6A',
                 }}
               >{s.root}</text>
+              <text
+                x={lx} y={ly + 22}
+                textAnchor="middle"
+                style={{
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '10px',
+                  fill: '#A8763E',
+                  letterSpacing: '0.04em',
+                }}
+              >{s.mel}</text>
             </g>
           );
         })}
