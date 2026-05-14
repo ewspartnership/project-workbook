@@ -2316,3 +2316,73 @@ function Methodology({ onBack }) {
   );
 }
 
+function Guide({ onBack }) {
+  return (
+    <div style={{ maxWidth: 760, margin: '0 auto', padding: '56px 32px 80px' }}>
+      <button className="btn btn-ghost" onClick={onBack} style={{ marginLeft: -12, marginBottom: 24 }}>← Back</button>
+
+      <div style={{ marginBottom: 8 }}>
+        <SectionLabel>THE WORKBOOK IN PRACTICE</SectionLabel>
+      </div>
+      <h1 style={{ fontSize: 'clamp(40px, 5vw, 56px)', lineHeight: 1.05, fontWeight: 300, margin: '0 0 24px' }}>
+        A practical guide
+      </h1>
+
+      <p style={{ fontSize: 18, color: '#5A5249', lineHeight: 1.6, marginBottom: 12 }}>
+        Most charity projects start with an email or a bid landing in someone's inbox and end with a funder report being assembled at the last minute. The workbook is built for what happens between those two points.
+      </p>
+      <p style={{ fontSize: 16, color: '#5A5249', lineHeight: 1.65, marginBottom: 40, fontStyle: 'italic' }}>
+        It works best when used as a project unfolds — picking up at the brief, staying with you through delivery, and still there when it's time to close honestly and learn for next time.
+      </p>
+
+      <section style={{ marginBottom: 48 }}>
+        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>When a new project lands</h2>
+        <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
+          Click Design in the cycle at the top. The fields appear below — strategic alignment, problem, the change you expect, what will tell you it's working, money and reporting deadlines. Fill in what you know. You won't have everything yet, and that's the point. At the end of Stage 1 the workbook turns the gaps into a list of plain-English questions you can copy straight into an email to the Project Lead. Often the fastest way to get from "we've got a brief but it's incomplete" to "we've got what we need to commit." When the essentials are in, Gate 1 lights green. A single click signs it off.
+        </p>
+      </section>
+
+      <section style={{ marginBottom: 48 }}>
+        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Getting ready to deliver</h2>
+        <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
+          Stage 2 is where briefs become real. Named accountabilities, dates in diaries, partners contacted, monitoring set up, budget loaded, safeguarding briefed. The operational checklist catches the practical things that are easy to miss when projects move quickly. Gate 2 asks the harder question: are we genuinely ready to start, or are we starting hoping things will fall into place?
+        </p>
+      </section>
+
+      <section style={{ marginBottom: 48 }}>
+        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>While the project is running</h2>
+        <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
+          Stage 3 check-ins capture status — but they're also the moment to notice what's working, what isn't, and what needs to adapt while there's still time to do something about it. Reflective practice in action. Each check-in records RAG for delivery and finance, what's working, what isn't, key risks and any decisions taken. If something material shifts mid-project — a partner withdraws, the model needs reshaping — log it as a material change and Gate 3 appears. Most projects never see it.
+        </p>
+      </section>
+
+      <section style={{ marginBottom: 48 }}>
+        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Closing honestly</h2>
+        <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
+          When delivery is done, Stage 4 holds up a mirror. Each commitment you made in Stage 1 — the problem, the change, the indicators, the most fragile assumption, who might get missed — is shown alongside the reflection prompts. You're not staring at a blank page trying to remember what was promised. Then a separate section for lessons forward: what surprised you, what you'd do differently, what bid assumptions need revising next time. Brief is better than blank. Gate 4 is the proper close — reports submitted, finance reconciled, learning captured.
+        </p>
+      </section>
+
+      <section style={{ marginBottom: 48 }}>
+        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Sharing and keeping safe</h2>
+        <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
+          Projects currently live in one browser only. They don't sync between devices, browsers, or team members. Download a Word copy after every substantial change — that's the official record while shared team data is in development. The Word export is also how you share a project with colleagues, partners or funders, support a handover, or prepare an interim or final report.
+        </p>
+      </section>
+
+      <section style={{ marginBottom: 48 }}>
+        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>A note on context</h2>
+        <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
+          The workbook is a structure, not a rulebook. Edit, ignore or adapt anything that doesn't fit. If you need to capture something it doesn't ask for, use the notes spaces or the check-ins, or just keep going.
+        </p>
+      </section>
+
+      <div className="divider" />
+
+      <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', textAlign: 'center' }}>
+        This is an evolving prototype. Practical feedback is very welcome — <a href="mailto:s.sanderson@ewspartnership.org" style={{ color: '#8A7D6A' }}>s.sanderson@ewspartnership.org</a>. For the thinking behind the design, see About this approach.
+      </p>
+    </div>
+  );
+}
+
