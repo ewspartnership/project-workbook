@@ -19,6 +19,14 @@ async function saveAll(items) {
 // Ensure projects loaded from storage have all current fields (additive only — never remove)
 function migrate(p) {
   const fresh = newProject();
+  const oldGates = p.gates || {};
+  const mergedGates = { ...fresh.gates, ...oldGates };
+  // Old projects stored the material-changes log in gates[3] (array) and the actual gate as gates.deliveryComplete
+  if (Array.isArray(mergedGates[3])) {
+    mergedGates.changes = mergedGates[3];
+    mergedGates[3] = oldGates.deliveryComplete || fresh.gates[3];
+  }
+  delete mergedGates.deliveryComplete;
   return {
     ...fresh,
     ...p,
@@ -33,7 +41,7 @@ function migrate(p) {
       ...fresh.close, ...(p.close || {}),
       endChecklist: { ...fresh.close.endChecklist, ...((p.close && p.close.endChecklist) || {}) },
     },
-    gates: { ...fresh.gates, ...(p.gates || {}) },
+    gates: mergedGates,
     checkIns: p.checkIns || [],
   };
 }
@@ -48,8 +56,8 @@ const newProject = () => ({
   gates: {
     1: { passed: false, date: '', note: '' },
     2: { passed: false, date: '', note: '' },
-    3: [],
-    deliveryComplete: { passed: false, date: '', note: '' },
+    3: { passed: false, date: '', note: '' },
+    changes: [],
     4: { passed: false, date: '', note: '' },
   },
   // Stage 0: anchor (organisational strategic alignment)
@@ -168,7 +176,7 @@ function buildProjectSheetHTML(p) {
       <td>${esc(c.actions)}</td>
     </tr>`).join('');
 
-  const changeBlocks = (p.gates[3] || []).map(c => `
+  const changeBlocks = (p.gates.changes || []).map(c => `
     <div class="gate-block change">
       <strong>${esc(c.date)}</strong>${c.approvedBy ? ` &middot; approved by ${esc(c.approvedBy)}` : ''}<br/>
       <em>What changed:</em> ${esc(c.what)}<br/>
@@ -874,7 +882,7 @@ function hasContent(project, stageKey) {
     return !!(o.projectLead?.trim() || o.deliveryLead?.trim() || o.timetable?.trim() || Object.values(o.checklist).some(Boolean));
   }
   if (stageKey === 'monitor') {
-    return project.checkIns.length > 0 || project.gates[3].length > 0;
+    return project.checkIns.length > 0 || project.gates.changes.length > 0;
   }
   if (stageKey === 'close') {
     const c = project.close;
@@ -1644,6 +1652,7 @@ function MonitorStage({ project, update, onAdvance }) {
   const [adding, setAdding] = useState(false);
   const [addingChange, setAddingChange] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const gate = project.gates[3];
 
   const addCheckIn = (entry) => {
     update(p => ({ ...p, checkIns: [...p.checkIns, { id: `c-${Date.now()}`, ...entry }] }));
@@ -1658,7 +1667,7 @@ function MonitorStage({ project, update, onAdvance }) {
     update(p => ({ ...p, checkIns: p.checkIns.filter(c => c.id !== id) }));
   };
   const addChange = (entry) => {
-    update(p => ({ ...p, gates: { ...p.gates, 3: [...p.gates[3], { id: `g3-${Date.now()}`, ...entry }] } }));
+    update(p => ({ ...p, gates: { ...p.gates, changes: [...p.gates.changes, { id: `g3-${Date.now()}`, ...entry }] } }));
     setAddingChange(false);
   };
 
@@ -1697,22 +1706,29 @@ function MonitorStage({ project, update, onAdvance }) {
         </div>
       )}
 
-      {project.gates[3].length > 0 && (
+      {project.gates.changes.length > 0 && (
         <div>
           <SectionLabel style={{ marginLeft: 4, marginBottom: 14, color: '#A8763E' }}>Decisions logged during delivery</SectionLabel>
           <div style={{ display: 'grid', gap: 12 }}>
-            {[...project.gates[3]].reverse().map(c => <ChangeCard key={c.id} change={c} />)}
+            {[...project.gates.changes].reverse().map(c => <ChangeCard key={c.id} change={c} />)}
           </div>
         </div>
       )}
 
-      <div className="card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
-        <div>
-          <h3 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 500 }}>Gate 3 — Delivery complete</h3>
-          <p style={{ margin: 0, fontSize: 13, color: '#5A5249' }}>Sign off the end of delivery and move to Close &amp; Learn.</p>
-        </div>
-        <button className="btn btn-primary" onClick={() => { update(p => ({ ...p, stage: p.stage === 'monitor' ? 'close' : p.stage, gates: { ...p.gates, deliveryComplete: { passed: true, date: todayISO(), note: 'Delivery complete' } } })); onAdvance(); }}>Move to Close &amp; Learn →</button>
-      </div>
+      <GatePanel
+        n={3}
+        title="Gate 3 — Delivery complete"
+        intent="Has delivery genuinely finished?"
+        ready={true}
+        gate={gate}
+        priorGatePassed={project.gates[2].passed}
+        priorGateName="Gate 2 (Ready to deliver)"
+        readyMsg="Sign off the end of delivery and move to Close &amp; Learn."
+        notReadyMsg=""
+        onPass={() => update(p => ({ ...p, gates: { ...p.gates, 3: { passed: true, date: todayISO(), note: gate.note || 'Delivery complete' } }, stage: p.stage === 'monitor' ? 'close' : p.stage }))}
+        onUpdateNote={(note) => update(p => ({ ...p, gates: { ...p.gates, 3: { ...p.gates[3], note } } }))}
+        onAdvance={onAdvance}
+      />
     </div>
   );
 }
