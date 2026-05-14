@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 // ============================================
 // PROJECT WORKBOOK v2
@@ -759,8 +759,8 @@ function Home({ projects, onOpen, onAdd, onDelete, onMethodology, onGuide }) {
             </p>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-            <button className="btn btn-ghost" onClick={onGuide} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>A practical guide →</button>
-            <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>About this approach →</button>
+            <button className="btn btn-ghost" onClick={onGuide} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>A practical guide</button>
+            <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>About this approach</button>
           </div>
         </div>
       </header>
@@ -1145,6 +1145,8 @@ function BotanicalMark() {
 // ============================================
 function ProjectView({ project, update, onBack, onDelete, onMethodology, onGuide }) {
   const [stage, setStage] = useState(project.stage === 'done' ? 'close' : project.stage);
+  const nameRef = useRef(null);
+  useEffect(() => { if (!project.name && nameRef.current) nameRef.current.focus(); }, []);
 
   return (
     <div style={{ maxWidth: 1080, margin: '0 auto', padding: '32px 32px 80px' }}>
@@ -1161,7 +1163,9 @@ function ProjectView({ project, update, onBack, onDelete, onMethodology, onGuide
 
       {/* Project title */}
       <header style={{ marginBottom: 40 }}>
+        <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#A8763E', marginBottom: 8 }}>Project name</div>
         <input
+          ref={nameRef}
           type="text"
           value={project.name}
           onChange={(e) => update(p => ({ ...p, name: e.target.value }))}
@@ -1181,13 +1185,16 @@ function ProjectView({ project, update, onBack, onDelete, onMethodology, onGuide
           }}
         />
         <div style={{ display: 'flex', gap: 24, marginTop: 14, flexWrap: 'wrap' }}>
-          <input
-            type="text"
-            value={project.funder}
-            onChange={(e) => update(p => ({ ...p, funder: e.target.value }))}
-            placeholder="Funder or programme"
-            style={{ maxWidth: 320, fontSize: 14, color: '#5A5249' }}
-          />
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#A8763E', marginBottom: 4 }}>Funder / commissioner</div>
+            <input
+              type="text"
+              value={project.funder}
+              onChange={(e) => update(p => ({ ...p, funder: e.target.value }))}
+              placeholder="Funder / commissioner"
+              style={{ maxWidth: 320, fontSize: 14, color: '#5A5249' }}
+            />
+          </div>
         </div>
       </header>
 
