@@ -493,6 +493,7 @@ export default function App() {
   const [projects, setProjects] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [view, setView] = useState('home'); // home | project | methodology | guide
+  const [guidePrev, setGuidePrev] = useState('home');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => { loadAll().then(p => { setProjects(p); setLoading(false); }); }, []);
@@ -522,11 +523,11 @@ export default function App() {
         ) : view === 'methodology' ? (
           <Methodology onBack={() => setView('home')} />
         ) : view === 'guide' ? (
-          <Guide onBack={() => setView('project')} />
+          <Guide onBack={() => setView(guidePrev)} />
         ) : view === 'home' || !active ? (
-          <Home projects={projects} onOpen={(id) => { setActiveId(id); setView('project'); }} onAdd={add} onDelete={remove} onMethodology={() => setView('methodology')} />
+          <Home projects={projects} onOpen={(id) => { setActiveId(id); setView('project'); }} onAdd={add} onDelete={remove} onMethodology={() => setView('methodology')} onGuide={() => { setGuidePrev('home'); setView('guide'); }} />
         ) : (
-          <ProjectView project={active} update={(fn) => update(active.id, fn)} onBack={() => setView('home')} onDelete={() => remove(active.id)} onMethodology={() => setView('methodology')} onGuide={() => setView('guide')} />
+          <ProjectView project={active} update={(fn) => update(active.id, fn)} onBack={() => setView('home')} onDelete={() => remove(active.id)} onMethodology={() => setView('methodology')} onGuide={() => { setGuidePrev('project'); setView('guide'); }} />
         )}
       </div>
     </>
@@ -737,7 +738,7 @@ function Loading() {
 // ============================================
 // HOME / DASHBOARD
 // ============================================
-function Home({ projects, onOpen, onAdd, onDelete, onMethodology }) {
+function Home({ projects, onOpen, onAdd, onDelete, onMethodology, onGuide }) {
   return (
     <div style={{ maxWidth: 1080, margin: '0 auto', padding: '56px 32px 80px' }}>
 
@@ -757,9 +758,10 @@ function Home({ projects, onOpen, onAdd, onDelete, onMethodology }) {
               From first idea to final learning — helping small teams design clearly, stay on track, and learn as they go.
             </p>
           </div>
-          <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-            About this approach →
-          </button>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+            <button className="btn btn-ghost" onClick={onGuide} style={{ fontSize: 12 }}>A practical guide</button>
+            <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>About this approach →</button>
+          </div>
         </div>
       </header>
 
@@ -2334,33 +2336,56 @@ function Guide({ onBack }) {
       <p style={{ fontSize: 18, color: '#5A5249', lineHeight: 1.6, marginBottom: 12 }}>
         Most charity projects start with an email or a bid landing in someone's inbox and end with a funder report being assembled at the last minute. The workbook is built for what happens between those two points.
       </p>
-      <p style={{ fontSize: 16, color: '#5A5249', lineHeight: 1.65, marginBottom: 40, fontStyle: 'italic' }}>
+      <p style={{ fontSize: 16, color: '#5A5249', lineHeight: 1.65, marginBottom: 32, fontStyle: 'italic' }}>
         It works best when used as a project unfolds — picking up at the brief, staying with you through delivery, and still there when it's time to close honestly and learn for next time.
       </p>
 
+      <div style={{ marginBottom: 8 }}>
+        <CycleHub project={newProject()} onSelectStage={() => {}} currentStage={null} />
+      </div>
+      <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', textAlign: 'center', marginBottom: 48 }}>
+        The cycle is also the navigation — click any stage to open its fields.
+      </p>
+
       <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>When a new project lands</h2>
+        <h2 style={{ fontSize: 26, fontWeight: 400, margin: '0 0 4px' }}>
+          <span style={{ fontWeight: 700, fontStyle: 'normal', color: '#A8763E' }}>Stage 1 — </span>
+          <span style={{ fontStyle: 'italic', color: '#3E5A3A' }}>Design</span>
+        </h2>
+        <p style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'italic', margin: '0 0 10px' }}>When a new project lands</p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
           Click Design in the cycle at the top. The fields appear below — strategic alignment, problem, the change you expect, what will tell you it's working, money and reporting deadlines. Fill in what you know. You won't have everything yet, and that's the point. At the end of Stage 1 the workbook turns the gaps into a list of plain-English questions you can copy straight into an email to the Project Lead. Often the fastest way to get from "we've got a brief but it's incomplete" to "we've got what we need to commit." When the essentials are in, Gate 1 lights green. A single click signs it off.
         </p>
       </section>
 
       <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Getting ready to deliver</h2>
+        <h2 style={{ fontSize: 26, fontWeight: 400, margin: '0 0 4px' }}>
+          <span style={{ fontWeight: 700, fontStyle: 'normal', color: '#A8763E' }}>Stage 2 — </span>
+          <span style={{ fontStyle: 'italic', color: '#3E5A3A' }}>Operationalise</span>
+        </h2>
+        <p style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'italic', margin: '0 0 10px' }}>Getting ready to deliver</p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
           Stage 2 is where briefs become real. Named accountabilities, dates in diaries, partners contacted, monitoring set up, budget loaded, safeguarding briefed. The operational checklist catches the practical things that are easy to miss when projects move quickly. Gate 2 asks the harder question: are we genuinely ready to start, or are we starting hoping things will fall into place?
         </p>
       </section>
 
       <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>While the project is running</h2>
+        <h2 style={{ fontSize: 26, fontWeight: 400, margin: '0 0 4px' }}>
+          <span style={{ fontWeight: 700, fontStyle: 'normal', color: '#A8763E' }}>Stage 3 — </span>
+          <span style={{ fontStyle: 'italic', color: '#3E5A3A' }}>Monitor</span>
+        </h2>
+        <p style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'italic', margin: '0 0 10px' }}>While the project is running</p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
           Stage 3 check-ins capture status — but they're also the moment to notice what's working, what isn't, and what needs to adapt while there's still time to do something about it. Reflective practice in action. Each check-in records RAG for delivery and finance, what's working, what isn't, key risks and any decisions taken. If something material shifts mid-project — a partner withdraws, the model needs reshaping — log it as a material change and Gate 3 appears. Most projects never see it.
         </p>
       </section>
 
       <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Closing honestly</h2>
+        <h2 style={{ fontSize: 26, fontWeight: 400, margin: '0 0 4px' }}>
+          <span style={{ fontWeight: 700, fontStyle: 'normal', color: '#A8763E' }}>Stage 4 — </span>
+          <span style={{ fontStyle: 'italic', color: '#3E5A3A' }}>Close &amp; Learn</span>
+        </h2>
+        <p style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'italic', margin: '0 0 10px' }}>Closing honestly</p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
           When delivery is done, Stage 4 holds up a mirror. Each commitment you made in Stage 1 — the problem, the change, the indicators, the most fragile assumption, who might get missed — is shown alongside the reflection prompts. You're not staring at a blank page trying to remember what was promised. Then a separate section for lessons forward: what surprised you, what you'd do differently, what bid assumptions need revising next time. Brief is better than blank. Gate 4 is the proper close — reports submitted, finance reconciled, learning captured.
         </p>
