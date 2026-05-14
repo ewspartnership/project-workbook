@@ -821,8 +821,8 @@ function EmptyHome({ onAdd }) {
 function ProjectRow({ project, onOpen, onDelete, delay = 0 }) {
   const meta = stageMeta[project.stage];
   const last = project.checkIns.length ? project.checkIns[project.checkIns.length - 1] : null;
-  const passedGates = [1, 2, 4].filter(g => project.gates[g]?.passed).length;
-  const totalGates = 3;
+  const passedGates = [1, 2, 3, 4].filter(g => project.gates[g]?.passed).length;
+  const totalGates = 4;
 
   return (
     <div
@@ -863,8 +863,7 @@ function ProjectRow({ project, onOpen, onDelete, delay = 0 }) {
 // CYCLE HUB & STAGE GLYPHS
 // ============================================
 
-// Map stage keys to gate numbers (3 is conditional, doesn't count for stage status)
-const stageGateMap = { design: 1, operationalise: 2, monitor: null, close: 4 };
+const stageGateMap = { design: 1, operationalise: 2, monitor: 3, close: 4 };
 
 // Has the user touched this stage at all? (for "in progress" detection)
 function hasContent(project, stageKey) {
