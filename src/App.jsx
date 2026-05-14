@@ -49,6 +49,7 @@ const newProject = () => ({
     1: { passed: false, date: '', note: '' },
     2: { passed: false, date: '', note: '' },
     3: [],
+    deliveryComplete: { passed: false, date: '', note: '' },
     4: { passed: false, date: '', note: '' },
   },
   // Stage 0: anchor (organisational strategic alignment)
@@ -1707,10 +1708,10 @@ function MonitorStage({ project, update, onAdvance }) {
 
       <div className="card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h3 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 500 }}>Delivery wrapping up?</h3>
-          <p style={{ margin: 0, fontSize: 13, color: '#5A5249' }}>Move to Close & Learn when sessions are done.</p>
+          <h3 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 500 }}>Gate 3 — Delivery complete</h3>
+          <p style={{ margin: 0, fontSize: 13, color: '#5A5249' }}>Sign off the end of delivery and move to Close &amp; Learn.</p>
         </div>
-        <button className="btn btn-primary" onClick={() => { update(p => ({ ...p, stage: 'close' })); onAdvance(); }}>Move to Close & Learn →</button>
+        <button className="btn btn-primary" onClick={() => { update(p => ({ ...p, stage: p.stage === 'monitor' ? 'close' : p.stage, gates: { ...p.gates, deliveryComplete: { passed: true, date: todayISO(), note: 'Delivery complete' } } })); onAdvance(); }}>Move to Close &amp; Learn →</button>
       </div>
     </div>
   );
@@ -2352,8 +2353,11 @@ function Guide({ onBack }) {
       <div style={{ maxWidth: 360, margin: '0 auto 8px' }}>
         <CycleHub project={newProject()} onSelectStage={() => {}} currentStage={null} interactive={false} />
       </div>
-      <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', textAlign: 'center', marginBottom: 48 }}>
+      <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', textAlign: 'center', marginBottom: 24 }}>
         The four stages and how they connect. Strategic alignment sits at the centre as the anchor.
+      </p>
+      <p style={{ fontSize: 15, color: '#5A5249', lineHeight: 1.65, marginBottom: 48 }}>
+        Each stage opens when you click its circle in the cycle. The fields for that stage appear below. You can move freely between stages at any time — nothing locks you out of later stages.
       </p>
 
       <section style={{ marginBottom: 48 }}>
@@ -2365,6 +2369,7 @@ function Guide({ onBack }) {
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
           When you start a new project in the workbook, you'll land in Stage 1 — Design. The fields cover strategic alignment, the problem you're responding to, the change you expect, what will tell you it's working, money and reporting deadlines. Fill in what you know. You won't have everything yet, and that's the point. At the end of Stage 1 the workbook turns the gaps into a list of plain-English questions you can copy straight into an email to the Project Lead. Often the fastest way to get from "we've got a brief but it's incomplete" to "we've got what we need to commit." When the essentials are in, Gate 1 lights green. A single click signs it off.
         </p>
+        <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', marginTop: 12 }}>Click Stage 2 in the cycle to open Operationalise.</p>
       </section>
 
       <section style={{ marginBottom: 48 }}>
@@ -2376,6 +2381,7 @@ function Guide({ onBack }) {
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
           Stage 2 is where briefs become real. Named accountabilities, dates in diaries, partners contacted, monitoring set up, budget loaded, safeguarding briefed. The operational checklist catches the practical things that are easy to miss when projects move quickly. Gate 2 asks the harder question: are we genuinely ready to start, or are we starting hoping things will fall into place?
         </p>
+        <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', marginTop: 12 }}>Click Stage 3 in the cycle to open Monitor.</p>
       </section>
 
       <section style={{ marginBottom: 48 }}>
@@ -2385,8 +2391,9 @@ function Guide({ onBack }) {
         </h2>
         <p style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'italic', margin: '0 0 10px' }}>While the project is running</p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
-          Stage 3 check-ins capture status — but they're also the moment to notice what's working, what isn't, and what needs to adapt while there's still time to do something about it. Reflective practice in action. Each check-in records RAG for delivery and finance, what's working, what isn't, key risks and any decisions taken. If something material shifts mid-project — a partner withdraws, the model needs reshaping — log it as a material change and Gate 3 appears. Most projects never see it.
+          Stage 3 check-ins capture status — but they're also the moment to notice what's working, what isn't, and what needs to adapt while there's still time to do something about it. Reflective practice in action. Each check-in records RAG for delivery and finance, what's working, what isn't, key risks and any decisions taken. If something material shifts mid-project — a partner withdraws, the model needs reshaping — log it as a material change. When delivery is complete, Gate 3 signs it off.
         </p>
+        <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', marginTop: 12 }}>Click Stage 4 in the cycle to open Close &amp; Learn.</p>
       </section>
 
       <section style={{ marginBottom: 48 }}>
