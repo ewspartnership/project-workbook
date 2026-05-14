@@ -233,8 +233,8 @@ function buildProjectSheetHTML(p) {
   </p>
 </div>
 
-<!-- STAGE 0: ANCHOR -->
-<h2>Stage 0 — Strategic alignment</h2>
+<!-- THE ANCHOR -->
+<h2>The anchor — Strategic alignment</h2>
 <div class="anchor">
   <div class="field-label">Which organisational strategic priorities does this project serve?</div>
   <div class="field-value">${orDash(p.anchor?.strategicAlignment)}</div>
@@ -1020,7 +1020,7 @@ function CycleHub({ project, onSelectStage, currentStage, interactive = true }) 
                 textAnchor="middle"
                 style={{
                   fontFamily: 'Inter, sans-serif',
-                  fontSize: '10px',
+                  fontSize: '12px',
                   fill: isPassed ? '#F5EFE3' : '#8A7D6A',
                   letterSpacing: '0.2em',
                   fontWeight: 500,
@@ -1046,27 +1046,27 @@ function CycleHub({ project, onSelectStage, currentStage, interactive = true }) 
                 className="cycle-stage-label"
                 style={{
                   fontFamily: 'Inter, sans-serif',
-                  fontSize: '14px',
+                  fontSize: '16px',
                   fill: '#2C2A26',
                   fontWeight: isCurrent ? 600 : 500,
                 }}
               >{s.label}</text>
               <text
-                x={lx} y={ly + 6}
+                x={lx} y={ly + 10}
                 textAnchor="middle"
                 style={{
                   fontFamily: 'Fraunces, serif',
-                  fontSize: '11px',
+                  fontSize: '13px',
                   fontStyle: 'italic',
                   fill: '#8A7D6A',
                 }}
               >{s.root}</text>
               <text
-                x={lx} y={ly + 22}
+                x={lx} y={ly + 27}
                 textAnchor="middle"
                 style={{
                   fontFamily: 'Inter, sans-serif',
-                  fontSize: '10px',
+                  fontSize: '11px',
                   fill: '#A8763E',
                   letterSpacing: '0.04em',
                 }}
@@ -1086,7 +1086,7 @@ function CycleKey() {
     { mark: '✓', label: 'gate passed' },
   ];
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', gap: 24, marginTop: 8, flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', gap: 24, marginTop: 56, flexWrap: 'wrap' }}>
       {items.map(it => (
         <span key={it.label} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#8A7D6A', letterSpacing: '0.06em' }}>
           <span style={{ fontFamily: 'Fraunces, serif', fontSize: 14, color: '#3E5A3A' }}>{it.mark}</span>
@@ -1234,7 +1234,7 @@ function DesignStage({ project, update, onAdvance }) {
 
       {/* Stage 0 anchor */}
       <div className="card">
-        <SectionLabel>Stage 0 · the anchor</SectionLabel>
+        <SectionLabel>The anchor</SectionLabel>
         <h3 style={{ margin: '0 0 8px', fontSize: 22, fontWeight: 400 }}>Strategic alignment</h3>
         <p style={{ marginTop: 0, fontSize: 14, color: '#5A5249', lineHeight: 1.55, marginBottom: 18 }}>
           Before any design work, name how this project sits within the wider organisational strategy. If you can't say which priorities it serves, that's the first question worth answering — for the project, and possibly for the strategy.
@@ -2230,7 +2230,7 @@ function Methodology({ onBack }) {
       <section style={{ marginBottom: 48 }}>
         <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Root 5 <span style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'normal' }}>— Tearfund</span></h2>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
-          Five ideas every project needs to hold together — <em>Purpose, People, Plan, Progress, Performance.</em> Tearfund developed Root 5 as a way of giving charity teams without dedicated project managers a shared language for their work. The four stages of this workbook map onto the last four. Stage 0 — Strategy — anchors the whole cycle, holding Purpose.
+          Five ideas every project needs to hold together — <em>Purpose, People, Plan, Progress, Performance.</em> Tearfund developed Root 5 as a way of giving charity teams without dedicated project managers a shared language for their work. The four stages of this workbook map onto the last four. Strategic alignment sits at the centre as the anchor, holding Purpose.
         </p>
       </section>
 
@@ -2353,7 +2353,7 @@ function Guide({ onBack }) {
         <CycleHub project={newProject()} onSelectStage={() => {}} currentStage={null} interactive={false} />
       </div>
       <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', textAlign: 'center', marginBottom: 48 }}>
-        The four stages and how they connect. Stage 0 — Strategic alignment — sits at the centre as the anchor.
+        The four stages and how they connect. Strategic alignment sits at the centre as the anchor.
       </p>
 
       <section style={{ marginBottom: 48 }}>
