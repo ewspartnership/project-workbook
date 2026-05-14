@@ -1699,7 +1699,7 @@ function MonitorStage({ project, update, onAdvance }) {
 
       {project.gates[3].length > 0 && (
         <div>
-          <SectionLabel style={{ marginLeft: 4, marginBottom: 14, color: '#A8763E' }}>Material changes</SectionLabel>
+          <SectionLabel style={{ marginLeft: 4, marginBottom: 14, color: '#A8763E' }}>Decisions logged during delivery</SectionLabel>
           <div style={{ display: 'grid', gap: 12 }}>
             {[...project.gates[3]].reverse().map(c => <ChangeCard key={c.id} change={c} />)}
           </div>
@@ -1824,7 +1824,7 @@ function ChangeForm({ onSave, onCancel }) {
 
   return (
     <div className="card fade-up" style={{ borderColor: '#A8763E', background: '#FAF1DD' }}>
-      <SectionLabel style={{ color: '#7A5A1E' }}>Material change · Gate 3</SectionLabel>
+      <SectionLabel style={{ color: '#7A5A1E' }}>Log a decision</SectionLabel>
       <h3 style={{ margin: '4px 0 12px', fontSize: 22, fontWeight: 400 }}>Something has shifted</h3>
       <p style={{ marginTop: 0, fontSize: 14, color: '#7A5A1E', marginBottom: 18 }}>
         Used only for changes affecting time, cost, scope, safeguarding, or reporting. The point is to make drift visible, not punishable.
@@ -2279,8 +2279,14 @@ function Methodology({ onBack }) {
 
       <section style={{ marginBottom: 48 }}>
         <h2 style={{ fontSize: 26, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px' }}>Why gates</h2>
+        <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginBottom: 12 }}>
+          Charity projects fail quietly. Funding gets accepted before anyone checks delivery is realistic. Delivery starts before the team is ready. Reports go in late because nobody owns them. Gates aren't bureaucracy — they're the moments to honestly answer one question and not move on until you can.
+        </p>
+        <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65, marginBottom: 12 }}>
+          Four gates — one at the end of each stage. Gate 1 asks whether the design is realistic. Gate 2 asks whether the team is genuinely ready to deliver. Gate 3 marks the end of delivery and the move into honest review. Gate 4 closes the project once reports are submitted, finance is reconciled and learning is captured.
+        </p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
-          Charity projects fail quietly. Funding gets accepted before anyone checks delivery is realistic. Delivery starts before the team is ready. Reports go in late because nobody owns them. Gates aren't bureaucracy — they're the moments to honestly answer one question and not move on until you can. Four gates. Three forced (1, 2, 4). One that only fires if something material shifts (Gate 3). If nothing material changes during delivery, you never see Gate 3, and that's exactly right.
+          Material changes during delivery (a partner withdrawing, the model needing reshaping) are logged in Stage 3 as a record of decisions, not as a gate that needs passing. Most projects log a few; some log none.
         </p>
       </section>
 
@@ -2391,7 +2397,7 @@ function Guide({ onBack }) {
         </h2>
         <p style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'italic', margin: '0 0 10px' }}>While the project is running</p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
-          Stage 3 check-ins capture status — but they're also the moment to notice what's working, what isn't, and what needs to adapt while there's still time to do something about it. Reflective practice in action. Each check-in records RAG for delivery and finance, what's working, what isn't, key risks and any decisions taken. If something material shifts mid-project — a partner withdraws, the model needs reshaping — log it as a material change. When delivery is complete, Gate 3 signs it off.
+          Stage 3 check-ins capture status — but they're also the moment to notice what's working, what isn't, and what needs to adapt while there's still time to do something about it. Reflective practice in action. Each check-in records RAG for delivery and finance, what's working, what isn't, key risks and any decisions taken. If something material shifts mid-project — a partner withdraws, the model needs reshaping — log it as a material change. These are records of decisions, not gates. When delivery is genuinely done, Gate 3 signs off the end of delivery and moves the project into Close &amp; Learn.
         </p>
         <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', marginTop: 12 }}>Click Stage 4 in the cycle to open Close &amp; Learn.</p>
       </section>
