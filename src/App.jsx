@@ -759,7 +759,7 @@ function Home({ projects, onOpen, onAdd, onDelete, onMethodology, onGuide }) {
             </p>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-            <button className="btn btn-ghost" onClick={onGuide} style={{ fontSize: 12 }}>A practical guide</button>
+            <button className="btn btn-ghost" onClick={onGuide} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>A practical guide →</button>
             <button className="btn btn-ghost" onClick={onMethodology} style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>About this approach →</button>
           </div>
         </div>
@@ -890,7 +890,7 @@ function stageStatus(project, stageKey) {
   return 'open';
 }
 
-function CycleHub({ project, onSelectStage, currentStage }) {
+function CycleHub({ project, onSelectStage, currentStage, interactive = true }) {
   const stages = [
     { key: 'design',         angle: -90, label: 'Design',         n: '01', root: 'Purpose',         color: '#7C5C3B', mel: 'Steps 1—2 · Purpose, ToC, indicators' },
     { key: 'operationalise', angle: 0,   label: 'Operationalise', n: '02', root: 'People & Plan',  color: '#A8763E', mel: 'Steps 3—4 · Data systems, roles' },
@@ -979,9 +979,9 @@ function CycleHub({ project, onSelectStage, currentStage }) {
           return (
             <g
               key={s.key}
-              className="cycle-stage-btn"
-              onClick={() => onSelectStage(s.key)}
-              style={{ cursor: 'pointer' }}
+              className={interactive ? 'cycle-stage-btn' : undefined}
+              onClick={interactive ? () => onSelectStage(s.key) : undefined}
+              style={interactive ? { cursor: 'pointer' } : undefined}
             >
               {/* Generous hit target covering circle + label area */}
               <circle cx={x} cy={y} r="58" fill="transparent" />
@@ -2340,11 +2340,11 @@ function Guide({ onBack }) {
         It works best when used as a project unfolds — picking up at the brief, staying with you through delivery, and still there when it's time to close honestly and learn for next time.
       </p>
 
-      <div style={{ marginBottom: 8 }}>
-        <CycleHub project={newProject()} onSelectStage={() => {}} currentStage={null} />
+      <div style={{ maxWidth: 360, margin: '0 auto 8px' }}>
+        <CycleHub project={newProject()} onSelectStage={() => {}} currentStage={null} interactive={false} />
       </div>
       <p style={{ fontSize: 13, color: '#8A7D6A', fontStyle: 'italic', textAlign: 'center', marginBottom: 48 }}>
-        The cycle is also the navigation — click any stage to open its fields.
+        The four stages and how they connect. Stage 0 — Strategic alignment — sits at the centre as the anchor.
       </p>
 
       <section style={{ marginBottom: 48 }}>
@@ -2354,7 +2354,7 @@ function Guide({ onBack }) {
         </h2>
         <p style={{ fontSize: 14, color: '#8A7D6A', fontStyle: 'italic', margin: '0 0 10px' }}>When a new project lands</p>
         <p style={{ fontSize: 15, color: '#3D3933', lineHeight: 1.65 }}>
-          Click Design in the cycle at the top. The fields appear below — strategic alignment, problem, the change you expect, what will tell you it's working, money and reporting deadlines. Fill in what you know. You won't have everything yet, and that's the point. At the end of Stage 1 the workbook turns the gaps into a list of plain-English questions you can copy straight into an email to the Project Lead. Often the fastest way to get from "we've got a brief but it's incomplete" to "we've got what we need to commit." When the essentials are in, Gate 1 lights green. A single click signs it off.
+          When you start a new project in the workbook, you'll land in Stage 1 — Design. The fields cover strategic alignment, the problem you're responding to, the change you expect, what will tell you it's working, money and reporting deadlines. Fill in what you know. You won't have everything yet, and that's the point. At the end of Stage 1 the workbook turns the gaps into a list of plain-English questions you can copy straight into an email to the Project Lead. Often the fastest way to get from "we've got a brief but it's incomplete" to "we've got what we need to commit." When the essentials are in, Gate 1 lights green. A single click signs it off.
         </p>
       </section>
 
